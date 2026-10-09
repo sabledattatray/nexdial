@@ -3,16 +3,30 @@ import Link from "next/link";
 import { Calendar, User, ArrowRight, ArrowLeft, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "NexDial Blog — CRM for Small Businesses & WhatsApp Alternatives",
+  title: "Excel Automation & Data Reporting Blog | Guides & Tutorials — NexDial",
   description:
-    "Expert insights, guides, and articles about lead tracking systems, WhatsApp CRM alternatives, and maximizing sales conversions for small businesses.",
+    "Expert guides, tutorials, and practical strategies on Advanced Excel modeling, automated MIS reporting, Power BI dashboards, and data cleaning for business decision-makers.",
   keywords: [
-    "CRM for small business",
-    "WhatsApp CRM alternative",
-    "lead tracking software India",
-    "customer inbox CRM",
-    "sales follow up guide",
+    "Excel automation",
+    "MIS reporting guide",
+    "Power BI vs Excel",
+    "Excel dashboard design",
+    "data cleaning techniques",
+    "VBA macros business",
+    "financial modeling Excel",
+    "spreadsheet consolidation",
   ],
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Excel Automation & Data Reporting Blog | NexDial",
+    description:
+      "Expert guides, tutorials, and practical strategies on Advanced Excel modeling, automated MIS reporting, Power BI dashboards, and data cleaning.",
+    url: "https://nexdial.io/blog",
+    siteName: "NexDial",
+    type: "website",
+  },
 };
 
 import { ARTICLES } from "@/lib/blog-content";
@@ -50,10 +64,10 @@ export default async function BlogPage({
             Insights & Guides
           </span>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mt-6 leading-tight">
-            Grow Your Business with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0057D9] to-[#00C2FF]">Smart CRM Insights</span>
+            Grow Your Business with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0057D9] to-[#00C2FF]">Data & Automation Insights</span>
           </h1>
           <p className="text-sm text-slate-400 mt-4 leading-relaxed">
-            Simple, practical tips to manage lead pipelines, replace messy spreadsheets, and close deals faster.
+            Practical guides to eliminate manual spreadsheet work, automate recurring MIS reports, and build executive dashboards.
           </p>
         </header>
 

@@ -29,20 +29,29 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "NexDial | Data Organization & Automated Reporting in Excel",
+    default: "NexDial | Data Organization, MIS Reporting & Excel Automation",
     template: "%s | NexDial",
   },
   description:
-    "Stop struggling with messy data. NexDial provides structured Excel reporting, automation, and data cleaning services for businesses.",
+    "NexDial helps businesses eliminate manual spreadsheet chaos, automate recurring MIS reports, build executive Excel & Power BI dashboards, and standardize messy data.",
   keywords: [
-    "Excel reporting",
-    "MIS reporting",
-    "data cleaning",
-    "automated reports",
+    "Excel automation services",
+    "MIS reporting automation",
+    "Excel dashboards",
+    "Power BI consulting",
+    "data cleaning services",
+    "VBA macros business",
     "spreadsheet consolidation",
+    "financial modeling Excel",
+    "data management consultancy",
+    "Power Query ETL",
   ],
-  authors: [{ name: "NexDial" }],
+  authors: [
+    { name: "NexDial", url: "https://nexdial.io" },
+    { name: "Datta Sable", url: "https://dattasable.com" },
+  ],
   creator: "NexDial",
+  publisher: "NexDial",
   verification: {
     google: "MRwYS7MG0Xj3bK0kZa_uTyl6FTDhzIcs-braGl5EYjs",
   },
@@ -51,22 +60,29 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://nexdial.io",
     siteName: "NexDial",
-    title: "NexDial | Data Organization & Automated Reporting in Excel",
+    title: "NexDial | Data Organization, MIS Reporting & Excel Automation",
     description:
-      "Stop struggling with messy data. NexDial provides structured Excel reporting, automation, and data cleaning services for businesses.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+      "Transform messy spreadsheets into automated MIS reporting, high-impact Excel dashboards, and audit-ready data models.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "NexDial - Data Organization and Excel Automation Services" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexDial | Data Organization & Automated Reporting in Excel",
+    title: "NexDial | Data Organization, MIS Reporting & Excel Automation",
     description:
-      "Stop struggling with messy data. NexDial provides structured Excel reporting, automation, and data cleaning services for businesses.",
+      "Transform messy spreadsheets into automated MIS reporting, high-impact Excel dashboards, and audit-ready data models.",
+    images: ["/og-image.png"],
   },
   manifest: "/manifest.json",
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -75,6 +91,44 @@ export const viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#081120" },
     { media: "(prefers-color-scheme: light)", color: "#4F46E5" },
   ],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://nexdial.io/#organization",
+      "name": "NexDial",
+      "url": "https://nexdial.io",
+      "logo": "https://nexdial.io/icon.png",
+      "description": "Specialist B2B consultancy providing Excel automation, automated MIS reporting, Power BI dashboards, and data cleaning solutions.",
+      "founder": {
+        "@type": "Person",
+        "name": "Datta Sable",
+        "url": "https://dattasable.com"
+      },
+      "sameAs": [
+        "https://dattasable.com"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://nexdial.io/#service",
+      "name": "NexDial Data & Business Automation",
+      "url": "https://nexdial.io",
+      "parentOrganization": { "@id": "https://nexdial.io/#organization" },
+      "serviceType": [
+        "Advanced Excel Modeling",
+        "MIS Reporting Automation",
+        "Interactive Excel & Power BI Dashboards",
+        "Data Cleaning and Standardization",
+        "VBA Macro Development",
+        "Power BI Business Intelligence"
+      ],
+      "areaServed": "Worldwide"
+    }
+  ]
 };
 
 export default function RootLayout({
@@ -89,6 +143,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

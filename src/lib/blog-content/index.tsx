@@ -1,34 +1,24 @@
 import { BlogPost } from "./types";
-import { whatsappCrmAlternative } from "./blog-1-whatsapp";
-import { salesFollowUpStrategy } from "./blog-2-sales";
-import { leadTrackingIndia } from "./blog-3-india";
-import { agenciesCrm } from "./blog-4-agencies";
-import { aiContactCenter } from "./blog-5-ai";
-import { b2bSaasConversion } from "./blog-6-saas";
-import { deathOfColdCalling } from "./blog-7-inbound";
-import { facebookLeadAds } from "./blog-8-facebook";
-import { realEstateCrm } from "./blog-9-real-estate";
-import { poorPipeline } from "./blog-10-pipeline";
-import { salesTrainingPlaybooks } from "./blog-11-training";
-import { shortenSalesCycle } from "./blog-12-cycle";
-import { omnichannelCrm } from "./blog-13-omnichannel";
-import { sevenTouchSequence } from "./blog-14-sequence";
-import { badSalesProcess } from "./blog-15-retention";
+import { vbaAutomationGuide } from "./article-1-vba-automation";
+import { powerBiVsExcel } from "./article-2-powerbi-vs-excel";
+import { dataCleaningGuide } from "./article-3-data-cleaning";
+import { misReportsGuide } from "./article-4-mis-reports";
+import { excelFinanceFormulas } from "./article-5-excel-finance";
+import { powerBiInsights } from "./article-6-powerbi-insights";
+import { customExcelDashboards } from "./article-7-excel-dashboards";
+import { hiddenCostsBadData } from "./article-8-bad-data";
+import { automatingRoutineVba } from "./article-9-vba-macros";
+import { bestPracticesDashboards } from "./article-10-dashboard-design";
 
 export const ARTICLES: Record<string, BlogPost> = {
-  "whatsapp-crm-alternative": whatsappCrmAlternative,
-  "sales-follow-up-strategy": salesFollowUpStrategy,
-  "lead-tracking-software-india": leadTrackingIndia,
-  "crm-for-agencies": agenciesCrm,
-  "ai-contact-center-automation": aiContactCenter,
-  "b2b-saas-sales-cadence-conversion": b2bSaasConversion,
-  "inbound-lead-management-vs-cold-calling": deathOfColdCalling,
-  "native-facebook-lead-ads-integration": facebookLeadAds,
-  "real-estate-crm-visual-pipelines": realEstateCrm,
-  "hidden-costs-poor-pipeline-management": poorPipeline,
-  "sales-training-playbooks-onboarding": salesTrainingPlaybooks,
-  "shorten-b2b-sales-cycle-friction": shortenSalesCycle,
-  "omnichannel-vs-multichannel-crm": omnichannelCrm,
-  "psychology-seven-touch-sales-sequence": sevenTouchSequence,
-  "five-signs-broken-sales-process": badSalesProcess,
+  "automate-business-excel-vba-guide": vbaAutomationGuide,
+  "power-bi-vs-excel-business-analytics": powerBiVsExcel,
+  "ultimate-guide-data-cleaning-accurate-reporting": dataCleaningGuide,
+  "building-effective-mis-reports-guide": misReportsGuide,
+  "top-10-excel-formulas-finance-professionals": excelFinanceFormulas,
+  "transforming-raw-data-actionable-insights-power-bi": powerBiInsights,
+  "small-businesses-need-custom-excel-dashboards": customExcelDashboards,
+  "hidden-costs-bad-data-cleaning": hiddenCostsBadData,
+  "automating-routine-tasks-vba-macros": automatingRoutineVba,
+  "best-practices-designing-excel-dashboards": bestPracticesDashboards,
 };
