@@ -4,10 +4,8 @@ import { getAuthenticatedSession } from "@/lib/auth";
 
 export async function GET(req: Request) {
   try {
-    const session = await getAuthenticatedSession();
-    if (!session || !session.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Public endpoint for signup form
+    // No auth required for GET
 
     const categories = await prisma.industryCategory.findMany({
       orderBy: { displayOrder: "asc" },

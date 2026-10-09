@@ -92,42 +92,28 @@ export function ContactSection() {
                 Get In Touch
               </p>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-                Are your spreadsheets <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] to-[#00E5A0]">slowing you down?</span>
+                Have a Spreadsheet or <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] to-[#00E5A0]">Reporting Task to Simplify?</span>
               </h2>
               <p className="text-[#94A3B8] text-lg leading-relaxed mt-6 max-w-lg">
-                Let us build an automated data solution that works for you. Fill out the form, or reach out directly to chat with our team.
+                Share a short description of your current process and the result you need. NexDial can review the requirement and discuss a suitable next step.
               </p>
+              
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <a href="/contact" className="px-6 py-3 rounded-lg bg-[#0057D9] hover:bg-[#0057D9]/90 text-white text-sm font-bold transition-colors flex items-center justify-center gap-2 hover:shadow-[0_0_15px_rgba(0,87,217,0.4)]">
+                  Request a Project Quote
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a href="mailto:hello@nexdial.io" className="px-6 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.08] text-white text-sm font-bold transition-colors flex items-center justify-center gap-2">
+                  Email Your Requirement
+                </a>
+              </div>
             </AnimatedSection>
           </div>
 
           {/* Right Column - Interactive Form Panel */}
           <div className="space-y-6">
             <AnimatedSection delay={0.2} className="glass-card-strong p-6 sm:p-8 relative overflow-hidden shadow-2xl rounded-[2rem] border border-white/[0.08]">
-              {/* Form Mode Selector Tabs */}
-              <div className="flex gap-2 p-1.5 rounded-xl bg-white/[0.03] border border-white/[0.05] mb-8">
-                <button
-                  onClick={() => setActiveTab("message")}
-                  className={`flex-1 py-3 text-center text-sm font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 ${
-                    activeTab === "message"
-                      ? "bg-[#0057D9] text-white border border-[#0057D9]/50 shadow-[0_0_15px_rgba(0,87,217,0.4)]"
-                      : "text-[#94A3B8] hover:text-white"
-                  }`}
-                >
-                  <Send className="w-4 h-4" />
-                  Quick Message
-                </button>
-                <button
-                  onClick={() => setActiveTab("demo")}
-                  className={`flex-1 py-3 text-center text-sm font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 ${
-                    activeTab === "demo"
-                      ? "bg-[#0057D9] text-white border border-[#0057D9]/50 shadow-[0_0_15px_rgba(0,87,217,0.4)]"
-                      : "text-[#94A3B8] hover:text-white"
-                  }`}
-                >
-                  <Calendar className="w-4 h-4" />
-                  Schedule Demo
-                </button>
-              </div>
+
 
               {/* TAB CONTENT */}
               <AnimatePresence mode="wait">
@@ -180,11 +166,10 @@ export function ContactSection() {
 
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div className="space-y-1.5">
-                            <label className="text-xs font-semibold text-[#94A3B8]">Business Name</label>
+                            <label className="text-xs font-semibold text-[#94A3B8]">Business Name (Optional)</label>
                             <input
                               type="text"
                               name="company"
-                              required
                               value={formData.company}
                               onChange={handleInputChange}
                               placeholder="Acme Corp"
@@ -192,14 +177,13 @@ export function ContactSection() {
                             />
                           </div>
                           <div className="space-y-1.5">
-                            <label className="text-xs font-semibold text-[#94A3B8]">Phone Number</label>
+                            <label className="text-xs font-semibold text-[#94A3B8]">Desired Timeline (Optional)</label>
                             <input
-                              type="tel"
+                              type="text"
                               name="phone"
-                              required
                               value={formData.phone}
                               onChange={handleInputChange}
-                              placeholder="+91 98765 43210"
+                              placeholder="e.g. 2 weeks"
                               className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] focus:border-[#00C2FF] focus:outline-none text-sm text-white placeholder-[#475569] transition-all"
                             />
                           </div>
@@ -216,15 +200,12 @@ export function ContactSection() {
                                 onChange={handleInputChange}
                                 className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] focus:border-[#00C2FF] focus:bg-[#081120] focus:outline-none text-sm text-white appearance-none transition-all cursor-pointer"
                               >
-                                <option value="Excel Dashboards & Power BI" className="bg-[#0f172a] text-white">Excel Dashboards & Power BI</option>
-                                <option value="VBA & Workflow Automation" className="bg-[#0f172a] text-white">VBA & Workflow Automation</option>
-                                <option value="Data Cleaning & Processing" className="bg-[#0f172a] text-white">Data Cleaning & Processing</option>
-                                <option value="MS Access to Web Migration" className="bg-[#0f172a] text-white">MS Access to Web Migration</option>
-                                <option value="SQL Database Architecture" className="bg-[#0f172a] text-white">SQL Database Architecture</option>
-                                <option value="Google Sheets Automation" className="bg-[#0f172a] text-white">Google Sheets Automation</option>
-                                <option value="API Integrations & Syncing" className="bg-[#0f172a] text-white">API Integrations & Syncing</option>
-                                <option value="Financial Modeling" className="bg-[#0f172a] text-white">Financial Modeling</option>
-                                <option value="Custom Software Development" className="bg-[#0f172a] text-white">Custom Software Development</option>
+                                <option value="Excel & MIS Reporting" className="bg-[#0f172a] text-white">Excel & MIS Reporting</option>
+                                <option value="Excel Automation" className="bg-[#0f172a] text-white">Excel Automation</option>
+                                <option value="Data Cleaning & Management" className="bg-[#0f172a] text-white">Data Cleaning & Management</option>
+                                <option value="Power Query" className="bg-[#0f172a] text-white">Power Query</option>
+                                <option value="Power BI Dashboard" className="bg-[#0f172a] text-white">Power BI Dashboard</option>
+                                <option value="Ongoing Reporting Support" className="bg-[#0f172a] text-white">Ongoing Reporting Support</option>
                                 <option value="Other" className="bg-[#0f172a] text-white">Other</option>
                               </select>
                               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#94A3B8]">
@@ -233,20 +214,20 @@ export function ContactSection() {
                             </div>
                           </div>
                           <div className="space-y-1.5">
-                            <label className="text-xs font-semibold text-[#94A3B8]">Data Volume</label>
+                            <label className="text-xs font-semibold text-[#94A3B8]">Approximate Budget</label>
                             <div className="relative">
                               <select
                                 name="volume"
-                                aria-label="Select data volume"
+                                aria-label="Select budget"
                                 value={formData.volume}
                                 onChange={handleInputChange}
                                 className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] focus:border-[#00C2FF] focus:bg-[#081120] focus:outline-none text-sm text-white appearance-none transition-all cursor-pointer"
                               >
-                                <option value="Under 100k Rows" className="bg-[#0f172a] text-white">Under 100k Rows</option>
-                                <option value="100k - 1 Million Rows" className="bg-[#0f172a] text-white">100k - 1 Million Rows</option>
-                                <option value="1 Million - 10 Million Rows" className="bg-[#0f172a] text-white">1 Million - 10 Million Rows</option>
-                                <option value="10 Million+ Rows" className="bg-[#0f172a] text-white">10 Million+ Rows</option>
-                                <option value="Not Sure" className="bg-[#0f172a] text-white">Not Sure</option>
+                                <option value="Under ₹2,500" className="bg-[#0f172a] text-white">Under ₹2,500</option>
+                                <option value="₹2,500–₹5,000" className="bg-[#0f172a] text-white">₹2,500–₹5,000</option>
+                                <option value="₹5,000–₹15,000" className="bg-[#0f172a] text-white">₹5,000–₹15,000</option>
+                                <option value="₹15,000+" className="bg-[#0f172a] text-white">₹15,000+</option>
+                                <option value="Not sure yet" className="bg-[#0f172a] text-white">Not sure yet</option>
                               </select>
                               <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#94A3B8]">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -256,20 +237,18 @@ export function ContactSection() {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="text-xs font-semibold text-[#94A3B8]">Primary Data Source</label>
+                          <label className="text-xs font-semibold text-[#94A3B8]">Preferred Engagement</label>
                           <div className="relative">
                             <select
                               name="source"
-                              aria-label="Select data source"
+                              aria-label="Select preferred engagement"
                               value={formData.source}
                               onChange={handleInputChange}
                               className="w-full px-4 py-3 rounded-lg bg-white/[0.03] border border-white/[0.08] focus:border-[#00C2FF] focus:bg-[#081120] focus:outline-none text-sm text-white appearance-none transition-all cursor-pointer"
                             >
-                              <option value="Excel / CSV Files" className="bg-[#0f172a] text-white">Excel / CSV Files</option>
-                              <option value="ERP / CRM Export" className="bg-[#0f172a] text-white">ERP / CRM Export</option>
-                              <option value="SQL Database" className="bg-[#0f172a] text-white">SQL Database</option>
-                              <option value="Web Scraping" className="bg-[#0f172a] text-white">Web Scraping</option>
-                              <option value="Other" className="bg-[#0f172a] text-white">Other</option>
+                              <option value="One-time project" className="bg-[#0f172a] text-white">One-time project</option>
+                              <option value="Ongoing support" className="bg-[#0f172a] text-white">Ongoing support</option>
+                              <option value="Remote job" className="bg-[#0f172a] text-white">Remote job</option>
                             </select>
                             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#94A3B8]">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>

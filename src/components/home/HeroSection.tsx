@@ -125,19 +125,18 @@ function ParticleField() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }
 
-// Mock data for the dashboard preview
 const mockLeads = [
-  { name: "Sales DB Sync", source: "SQL", status: "NEW", phone: "+91 98765 43210", time: "2 min ago", health: 92 },
-  { name: "HR Payroll Export", source: "Excel", status: "CONTACTED", phone: "+1 555-0142", time: "15 min ago", health: 78 },
-  { name: "Marketing API", source: "API", status: "INTERESTED", phone: "+91 87654 32109", time: "1 hr ago", health: 85 },
-  { name: "Inventory DB", source: "CSV", status: "IN_PROGRESS", phone: "+65 9012 3456", time: "3 hrs ago", health: 64 },
+  { name: "Sales MIS Report", source: "Excel", status: "CLEANING", phone: "+91 98765 43210", time: "2 min ago", health: 92 },
+  { name: "HR Data Consolidation", source: "CSV", status: "FORMATTING", phone: "+1 555-0142", time: "15 min ago", health: 78 },
+  { name: "Monthly KPI Dash", source: "SQL", status: "CALCULATING", phone: "+91 87654 32109", time: "1 hr ago", health: 85 },
+  { name: "Inventory Reconciliation", source: "API", status: "VALIDATING", phone: "+65 9012 3456", time: "3 hrs ago", health: 64 },
 ];
 
 const statusColors: Record<string, string> = {
-  NEW: "bg-[#00C2FF]/20 text-[#00C2FF]",
-  CONTACTED: "bg-[#8B5CF6]/20 text-[#8B5CF6]",
-  INTERESTED: "bg-[#00E5A0]/20 text-[#00E5A0]",
-  IN_PROGRESS: "bg-[#F59E0B]/20 text-[#F59E0B]",
+  CLEANING: "bg-[#00C2FF]/20 text-[#00C2FF]",
+  FORMATTING: "bg-[#8B5CF6]/20 text-[#8B5CF6]",
+  CALCULATING: "bg-[#00E5A0]/20 text-[#00E5A0]",
+  VALIDATING: "bg-[#F59E0B]/20 text-[#F59E0B]",
 };
 
 const sourceIcons: Record<string, typeof PhoneCall> = {
@@ -177,7 +176,7 @@ function DataDashboardPreview() {
           <div className="w-3 h-3 rounded-full bg-[#22C55E]" />
         </div>
         <div className="flex-1 h-6 rounded-md bg-white/[0.04] flex items-center px-3 border border-white/5">
-          <span className="text-sm text-[#64748B]">app.nexdial.io/dashboard</span>
+          <span className="text-sm text-[#64748B]">app.nexdial.io/reports</span>
         </div>
       </div>
 
@@ -213,9 +212,9 @@ function DataDashboardPreview() {
             {/* KPIs */}
             <div className="grid grid-cols-3 gap-3 mb-3">
               {[
-                { label: "Data Processed", value: "4.2M", color: "from-[#0057D9] to-[#00C2FF]", change: "Rows this week" },
-                { label: "Pipelines Active", value: "18", color: "from-[#F59E0B] to-[#FBBF24]", change: "Running smoothly" },
-                { label: "Errors Prevented", value: "3,142", color: "from-[#00E5A0] to-[#00C896]", change: "+12% ↑" },
+                { label: "Rows Cleaned", value: "4.2M", color: "from-[#0057D9] to-[#00C2FF]", change: "Data this week" },
+                { label: "Reports Generated", value: "18", color: "from-[#F59E0B] to-[#FBBF24]", change: "Delivered on time" },
+                { label: "Hours Saved", value: "314", color: "from-[#00E5A0] to-[#00C896]", change: "+12% ↑" },
               ].map((stat) => (
                 <div key={stat.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 shadow-inner">
                   <p className="text-sm text-[#64748B] mb-1">{stat.label}</p>
@@ -278,7 +277,7 @@ function DataDashboardPreview() {
             <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#00E5A0]/5 border border-[#00E5A0]/15">
               <Sparkles className="w-3.5 h-3.5 text-[#00E5A0] flex-shrink-0" />
               <span className="text-sm text-[#00E5A0] font-medium">
-                AI suggests: Optimize SQL query in "Inventory DB" to save 12s per run
+                AI suggests: Apply Power Query template to "Inventory Reconciliation" to save 12s per run
               </span>
             </div>
           </div>
@@ -296,9 +295,9 @@ function DataDashboardPreview() {
                 {/* KPIs */}
                 <div className="grid grid-cols-3 gap-3 mb-3">
                   {[
-                    { label: "Data Processed", value: "4.2M", color: "from-[#0057D9] to-[#00C2FF]", change: "Rows this week" },
-                    { label: "Pipelines Active", value: "18", color: "from-[#F59E0B] to-[#FBBF24]", change: "Running smoothly" },
-                    { label: "Errors Prevented", value: "3,142", color: "from-[#00E5A0] to-[#00C896]", change: "+12% ↑" },
+                    { label: "Rows Cleaned", value: "4.2M", color: "from-[#0057D9] to-[#00C2FF]", change: "Data this week" },
+                    { label: "Reports Generated", value: "18", color: "from-[#F59E0B] to-[#FBBF24]", change: "Delivered on time" },
+                    { label: "Hours Saved", value: "314", color: "from-[#00E5A0] to-[#00C896]", change: "+12% ↑" },
                   ].map((stat) => (
                     <div key={stat.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 shadow-inner">
                       <p className="text-sm text-[#64748B] mb-1">{stat.label}</p>
@@ -361,7 +360,7 @@ function DataDashboardPreview() {
                 <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#00E5A0]/5 border border-[#00E5A0]/15">
                   <Sparkles className="w-3.5 h-3.5 text-[#00E5A0] animate-pulse flex-shrink-0" />
                   <span className="text-sm text-[#00E5A0] font-medium">
-                    AI suggests: Optimize SQL query in "Inventory DB" to save 12s per run
+                    AI suggests: Apply Power Query template to "Inventory Reconciliation" to save 12s per run
                   </span>
                 </div>
               </motion.div>
@@ -383,7 +382,7 @@ function DataDashboardPreview() {
                       { stage: "Raw Data", count: 14, color: "#00C2FF", items: ["Q3_Sales.csv", "HR_Export.xlsx", "API_Logs.json"] },
                       { stage: "Cleaning", count: 5, color: "#8B5CF6", items: ["Deduplication", "Format Fixes"] },
                       { stage: "Modeling", count: 8, color: "#F59E0B", items: ["Star Schema", "DAX Measures", "Power Query"] },
-                      { stage: "Visualized", count: 12, color: "#00E5A0", items: ["Exec Dash", "Inventory DB"] },
+                      { stage: "Visualized", count: 12, color: "#00E5A0", items: ["Exec Dash", "Inventory MIS"] },
                     ].map((col) => (
                       <div key={col.stage} className="bg-white/[0.02] border border-white/[0.05] rounded-xl p-2.5">
                         <div className="flex items-center justify-between mb-2">
@@ -473,7 +472,7 @@ function DataDashboardPreview() {
                 <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/15">
                   <Sparkles className="w-3.5 h-3.5 text-[#8B5CF6] animate-pulse flex-shrink-0" />
                   <span className="text-sm text-[#8B5CF6] font-medium">
-                    Auto-suggested: Optimize SQL query in "Inventory Sync" to save 12s per run
+                    Auto-suggested: Apply Power Query template to "Inventory Sync" to save 12s per run
                   </span>
                 </div>
               </motion.div>
@@ -509,14 +508,14 @@ export function HeroSection() {
             >
               <Sparkles className="w-4 h-4 text-[#00C2FF]" />
               <span className="text-sm font-medium text-[#00C2FF]">
-                Built for Fast-Growing Businesses — Simple, Powerful Data
+                REMOTE DATA & REPORTING SERVICES
               </span>
             </div>
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-semibold leading-[1.08] tracking-tight mb-6">
               <span className="gradient-text-hero">
-                Never Let Messy Data Slow You Down Again
+                Turn Your Excel Data Into Clear Business Decisions
               </span>
             </h1>
 
@@ -525,8 +524,8 @@ export function HeroSection() {
               className="text-lg lg:text-xl text-[#94A3B8] leading-relaxed mb-10 max-w-xl animate-fade-in-up opacity-0"
               style={{ animationDelay: "400ms" }}
             >
-              Unified inbox for calls, WhatsApp, forms &amp; manual entries.
-              Track every lead, automate follow-ups, and close more deals — all in one place.
+              NexDial helps businesses organize messy spreadsheets, simplify recurring MIS reports,
+              and build practical dashboards using Excel, Power Query, and Power BI where suitable.
             </p>
 
             {/* CTA Buttons */}
@@ -535,18 +534,18 @@ export function HeroSection() {
               style={{ animationDelay: "600ms" }}
             >
               <Link
-                href="/signup"
+                href="/contact"
                 className="btn-primary text-base !py-4 !px-8 flex items-center justify-center gap-2 group"
               >
                 <Zap className="w-5 h-5" />
-                Start Free Trial
+                Discuss Your Project
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="/contact"
+                href="/portfolio"
                 className="btn-secondary text-base !py-4 !px-8 flex items-center justify-center gap-2"
               >
-                See How It Works
+                View Portfolio
               </Link>
             </div>
 
@@ -557,7 +556,7 @@ export function HeroSection() {
             >
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
-                1,000+ Businesses
+                Remote freelance support for businesses, consultants, and operations teams.
               </div>
               <div className="w-px h-4 bg-white/10" />
               <div>2-Min Setup</div>

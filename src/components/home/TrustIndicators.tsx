@@ -22,10 +22,10 @@ const clientTypes = [
 ];
 
 const trustBadges = [
-  { name: "Business-Focused", desc: "Practical Solutions", icon: TrendingUp, color: "#00E5A0" },
-  { name: "Automation-First", desc: "Save Time & Effort", icon: Star, color: "#F59E0B" },
-  { name: "Structured Work", desc: "Maintainable Files", icon: Activity, color: "#00C2FF" },
-  { name: "Confidential", desc: "Secure Data Handling", icon: ShieldCheck, color: "#8B5CF6" },
+  { name: "Requirement-First", desc: "Agree on needs before building", icon: Activity, color: "#00E5A0" },
+  { name: "Practical Solutions", desc: "Simplest suitable tool", icon: Star, color: "#F59E0B" },
+  { name: "Clear Handover", desc: "Organized deliverables", icon: TrendingUp, color: "#00C2FF" },
+  { name: "Defined Scope", desc: "Outputs & price confirmed", icon: ShieldCheck, color: "#8B5CF6" },
 ];
 
 export function TrustIndicators() {
@@ -43,7 +43,7 @@ export function TrustIndicators() {
             <span className="text-[10px] font-semibold text-[#CBD5E1] uppercase tracking-wider">Industries & Teams</span>
           </div>
           <p className="text-sm font-semibold text-[#64748B] uppercase tracking-widest">
-            Empowering data-driven teams across the business
+            Focused on Useful, Maintainable Reporting
           </p>
         </AnimatedSection>
 

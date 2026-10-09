@@ -29,19 +29,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "NexDial — Unified Business Communication Inbox & CRM",
+    default: "NexDial | Data Organization & Automated Reporting in Excel",
     template: "%s | NexDial",
   },
   description:
-    "The simplest and fastest way for small businesses to never lose a customer conversation again. A lightweight CRM and unified customer inbox replacing scattered WhatsApp and Excel workflows.",
+    "Stop struggling with messy data. NexDial provides structured Excel reporting, automation, and data cleaning services for businesses.",
   keywords: [
-    "CRM for small business",
-    "lead management software",
-    "WhatsApp CRM alternative",
-    "unified customer inbox",
-    "small business CRM",
-    "lead tracking system",
-    "follow-up management",
+    "Excel reporting",
+    "MIS reporting",
+    "data cleaning",
+    "automated reports",
+    "spreadsheet consolidation",
   ],
   authors: [{ name: "NexDial" }],
   creator: "NexDial",
@@ -53,16 +51,16 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://nexdial.io",
     siteName: "NexDial",
-    title: "NexDial — Unified Business Communication Inbox & CRM",
+    title: "NexDial | Data Organization & Automated Reporting in Excel",
     description:
-      "A lightweight CRM and unified customer inbox replacing scattered WhatsApp and Excel workflows for small businesses.",
+      "Stop struggling with messy data. NexDial provides structured Excel reporting, automation, and data cleaning services for businesses.",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexDial — Unified Business Communication Inbox & CRM",
+    title: "NexDial | Data Organization & Automated Reporting in Excel",
     description:
-      "A lightweight CRM and unified customer inbox replacing scattered WhatsApp and Excel workflows.",
+      "Stop struggling with messy data. NexDial provides structured Excel reporting, automation, and data cleaning services for businesses.",
   },
   manifest: "/manifest.json",
   robots: {

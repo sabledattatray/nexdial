@@ -7,20 +7,20 @@ import { Shield, Inbox, Brain, Zap, Server, Mail, Phone, MessageSquare, ArrowRig
 const pillars = [
   {
     icon: Inbox,
-    title: "Eradicating Fragmentation",
-    desc: "We believe that context-switching between WhatsApp, email, and spreadsheets is the silent killer of revenue. NexDial unifies every interaction into a single, high-velocity timeline.",
+    title: "Requirement-First Design",
+    desc: "Understand the task and business context before proposing a solution, ensuring the report actually answers the right questions.",
     color: "#00C2FF"
   },
   {
     icon: Brain,
-    title: "Algorithmic Precision",
-    desc: "Sales is not a guessing game; it is a mathematical equation. Our integrated AI models eliminate human error by dictating exactly who to follow up with, and when.",
+    title: "Maintainable Logic",
+    desc: "Keep calculations and assumptions straightforward so your team can understand and maintain the work after handover.",
     color: "#8B5CF6"
   },
   {
     icon: Shield,
-    title: "Absolute Data Integrity",
-    desc: "Built on rigorous financial-grade standards with strict row-level data isolation, military-grade encryption, and uncompromising accuracy.",
+    title: "Practical Validation",
+    desc: "Validate outputs against agreed requirements and provide a clear, organized deliverable without unnecessary complexity.",
     color: "#00E5A0"
   }
 ];
@@ -37,13 +37,13 @@ export default function AboutPage() {
         {/* Page Header */}
         <AnimatedSection className="text-center max-w-4xl mx-auto mb-32">
           <span className="text-xs font-bold text-[#00C2FF] uppercase tracking-widest px-4 py-1.5 rounded-full bg-[#00C2FF]/10 border border-[#00C2FF]/20">
-            The NexDial Philosophy
+            The NexDial Approach
           </span>
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mt-8 leading-tight tracking-tight">
-            Architecting <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] to-[#00E5A0]">Velocity.</span>
+            Practical Data Support, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C2FF] to-[#00E5A0]">Built Around Your Reporting Needs</span>
           </h1>
           <p className="text-[#94A3B8] text-lg sm:text-xl mt-6 leading-relaxed max-w-2xl mx-auto font-light">
-            We are not just building spreadsheets. We are engineering the ultimate operational ecosystem to destroy manual data entry and transform chaotic companies into highly predictable machines.
+            NexDial provides remote support for Excel reporting, MIS preparation, data organization, and reporting automation. The focus is on understanding the business requirement, choosing a suitable approach, and delivering a clear, maintainable result.
           </p>
         </AnimatedSection>
 
@@ -81,16 +81,16 @@ export default function AboutPage() {
                 
                 <div className="space-y-6 text-[#94A3B8] text-base leading-relaxed">
                   <p>
-                    As a Business Intelligence Expert and Data Strategy Consultant, I spent years building enterprise-grade reporting solutions for major financial institutions (like HDFC Bank) and scaling startups. Through that experience, I watched countless organizations hit an artificial growth ceiling simply because their core data infrastructure was fundamentally broken.
+                    As a Business Intelligence Expert and Data Strategy Consultant, I spent years building reporting solutions for major financial institutions (like HDFC Bank) and scaling startups. Through that experience, I watched countless organizations struggle because their core data was disorganized.
                   </p>
                   <p>
-                    Finance teams were spending 40% of their month manually reconciling spreadsheets. Operations managers were constantly context-switching between disjointed systems. <strong>Profits were leaking not because the business model was bad, but because the reporting process was chaotic and error-prone.</strong>
+                    Finance teams were spending hours manually reconciling spreadsheets. Operations managers were constantly context-switching between disjointed systems.
                   </p>
                   <p>
-                    <strong className="text-white font-semibold">I built NexDial to eradicate that chaos through automation-first design.</strong>
+                    <strong className="text-white font-semibold">I built NexDial to solve these reporting challenges through structured organization and automation.</strong>
                   </p>
                   <p>
-                    Our mission is to provide small and mid-sized enterprises with the same rigorous, high-fidelity data architecture that multi-billion dollar companies use. By centralizing every piece of data into automated dashboards and leveraging algorithmic precision to calculate KPIs, we allow your team to stop doing admin work and start doing what actually matters: making decisions with absolute clarity.
+                    Our mission is to provide small and mid-sized enterprises with clean, reliable data workflows. By centralizing data into automated dashboards, we allow your team to stop doing manual entry and start making decisions with clarity.
                   </p>
                 </div>
                 
@@ -228,12 +228,12 @@ export default function AboutPage() {
         <AnimatedSection className="glass-card-strong p-10 lg:p-16 text-center rounded-[2.5rem] relative overflow-hidden border-t border-[#00C2FF]/20">
           <div className="absolute inset-0 bg-gradient-to-b from-[#00C2FF]/5 to-transparent pointer-events-none" />
           <Server className="w-12 h-12 text-[#00C2FF] mx-auto mb-6 opacity-80" />
-          <h3 className="text-2xl font-bold text-white mb-6 tracking-tight">Enterprise-Grade Reliability</h3>
+          <h3 className="text-2xl font-bold text-white mb-6 tracking-tight">Reliable Data Solutions</h3>
           <p className="text-[#94A3B8] text-base max-w-2xl mx-auto mb-10 leading-relaxed">
-            Your data is your business. Our solutions are engineered on top of highly redundant structures with deep data isolation, ensuring your operations are never compromised.
+            We handle your business data with care, ensuring accuracy and security in every project.
           </p>
           <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-            {["Strict NDA Protection", "Data Accuracy SLAs", "256-Bit AES Encryption", "Automated Validation Models"].map((cert) => (
+            {["Strict Confidentiality", "Accurate Calculations", "Secure Data Handling", "Reliable Delivery"].map((cert) => (
               <div key={cert} className="px-5 py-2.5 rounded-full bg-[#081120] border border-white/[0.08] text-xs sm:text-sm font-semibold text-[#CBD5E1] flex items-center gap-3 shadow-lg">
                 <div className="w-2 h-2 rounded-full bg-[#00E5A0] shadow-[0_0_8px_#00E5A0]" />
                 {cert}

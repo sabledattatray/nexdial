@@ -28,6 +28,7 @@ import {
   FileText,
   Award,
   Download,
+  UserPlus,
 } from "lucide-react";
 
 const navLinks = [
@@ -252,6 +253,13 @@ export function Navbar() {
                 Client Login
               </Link>
               <Link
+                href="/signup"
+                className="text-sm font-medium text-[#00C2FF] hover:text-[#00E5A0] transition-colors px-4 py-2 flex items-center gap-1.5"
+              >
+                <UserPlus className="w-4 h-4" />
+                Request Access
+              </Link>
+              <Link
                 href="/contact"
                 className="btn-primary text-sm !py-2.5 !px-5 flex items-center gap-2"
               >
@@ -331,6 +339,13 @@ export function Navbar() {
                     className="btn-secondary w-full text-center block text-sm"
                   >
                     Client Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full text-center block text-sm py-3 border border-[#00C2FF]/30 text-[#00C2FF] rounded-xl font-bold"
+                  >
+                    Request Access
                   </Link>
                   <Link
                     href="/contact"

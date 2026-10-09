@@ -7,60 +7,46 @@ import { ArrowUpRight, TrendingUp, Users, Clock, Percent, ShieldCheck } from "lu
 
 const cases = [
   {
-    id: "sales-mis",
-    category: "Sales",
-    title: "Sales MIS Dashboard (Demo Project)",
-    description: "A complete automated workflow taking raw CRM export data and transforming it into a dynamic, interactive Excel dashboard with zero manual copy-pasting.",
+    id: "sales-kpi",
+    category: "Sample Project",
+    title: "Excel Sales & KPI Dashboard — Sample Project",
+    description: "Problem: Raw sales records can be difficult to summarize consistently. Approach: Create a structured workbook that organizes source data and presents key summaries through PivotTables and charts.",
     metrics: [
-      { label: "Data Consolidation", value: "Automated", icon: TrendingUp, color: "#0057D9" },
-      { label: "Primary Tool", value: "Excel", icon: ShieldCheck, color: "#00C2FF" },
-      { label: "Manual Effort", value: "Removed", icon: Clock, color: "#00E5A0" },
+      { label: "Deliverable", value: "Summary Dashboard", icon: TrendingUp, color: "#0057D9" },
+      { label: "Tools Used", value: "Excel, PivotTables", icon: ShieldCheck, color: "#00C2FF" },
+      { label: "Feature", value: "KPI Calculations", icon: Clock, color: "#00E5A0" },
     ],
     bgGradient: "from-[#0057D9]/10 via-[#00C2FF]/5 to-transparent",
     borderGlow: "rgba(0, 194, 255, 0.2)",
     accentColor: "#00C2FF",
   },
   {
-    id: "kpi-dashboard",
-    category: "Management",
-    title: "Management KPI Dashboard (Illustrative Demo)",
-    description: "An executive summary dashboard combining data from finance, operations, and HR into one reliable, refreshable view for decision-makers.",
+    id: "monthly-mis",
+    category: "Sample Project",
+    title: "Monthly MIS Reporting — Sample Project",
+    description: "Problem: Recurring reports require repeated formatting. Approach: Build a consistent workbook structure and reporting template using agreed metrics and source data.",
     metrics: [
-      { label: "Data Sources", value: "Multiple", icon: Users, color: "#8B5CF6" },
-      { label: "Refresh Process", value: "1-Click", icon: ArrowUpRight, color: "#EC4899" },
-      { label: "Visualizations", value: "Dynamic", icon: TrendingUp, color: "#00E5A0" },
+      { label: "Deliverable", value: "Reporting Template", icon: Users, color: "#8B5CF6" },
+      { label: "Tools Used", value: "Excel, Formulas", icon: ArrowUpRight, color: "#EC4899" },
+      { label: "Benefit", value: "Consistent Structure", icon: TrendingUp, color: "#00E5A0" },
     ],
     bgGradient: "from-[#8B5CF6]/10 via-[#EC4899]/5 to-transparent",
     borderGlow: "rgba(139, 92, 246, 0.2)",
     accentColor: "#8B5CF6",
   },
   {
-    id: "inventory",
-    category: "Operations",
-    title: "Inventory Reporting System (Prototype)",
-    description: "A Power Query driven solution to clean and merge daily stock reports from various warehouses, highlighting stock-outs and aging inventory.",
+    id: "data-cleanup",
+    category: "Sample Project",
+    title: "Spreadsheet Cleanup & Consolidation — Sample Project",
+    description: "Problem: Multiple spreadsheets contain inconsistent formats and repeated records. Approach: Apply documented cleanup rules, standardize fields, and prepare a structured output dataset.",
     metrics: [
-      { label: "Technology", value: "Power Query", icon: ShieldCheck, color: "#00E5A0" },
-      { label: "File Merging", value: "Automated", icon: TrendingUp, color: "#0057D9" },
-      { label: "Error Rate", value: "Minimized", icon: ShieldCheck, color: "#00C2FF" },
+      { label: "Deliverable", value: "Cleaned Dataset", icon: ShieldCheck, color: "#00E5A0" },
+      { label: "Tools Used", value: "Power Query, Excel", icon: TrendingUp, color: "#0057D9" },
+      { label: "Output", value: "Exception List", icon: ShieldCheck, color: "#00C2FF" },
     ],
     bgGradient: "from-[#00E5A0]/10 via-[#0057D9]/5 to-transparent",
     borderGlow: "rgba(0, 229, 160, 0.2)",
     accentColor: "#00E5A0",
-  },
-  {
-    id: "monthly-mis",
-    category: "Finance",
-    title: "Automated Monthly MIS (Sample Workflow)",
-    description: "A structured Excel template that ingests Trial Balance data and automatically updates P&L, Balance Sheet, and variance analysis reports.",
-    metrics: [
-      { label: "Reporting Cycle", value: "Monthly", icon: Clock, color: "#06B6D4" },
-      { label: "Structure", value: "Standardized", icon: ShieldCheck, color: "#00E5A0" },
-      { label: "Formulas", value: "Dynamic", icon: TrendingUp, color: "#8B5CF6" },
-    ],
-    bgGradient: "from-[#06B6D4]/10 via-[#00C2FF]/5 to-transparent",
-    borderGlow: "rgba(6, 182, 212, 0.2)",
-    accentColor: "#06B6D4",
   }
 ];
 
@@ -81,10 +67,10 @@ export function CaseStudies() {
               Featured Work
             </p>
             <h2 className="section-title text-white mb-4">
-              Explore Our <span className="gradient-text">Portfolio</span>
+              See the Work, <span className="gradient-text">Not Just the Claims</span>
             </h2>
             <p className="text-[#64748B] text-lg">
-              Take a look at sample workflows and demo projects that demonstrate our approach to data management and automation.
+              Explore sample reporting solutions that demonstrate how NexDial approaches spreadsheet organization, reporting clarity, and recurring data tasks.
             </p>
           </AnimatedSection>
         </div>

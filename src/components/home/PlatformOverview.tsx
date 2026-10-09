@@ -16,47 +16,38 @@ const steps = [
   {
     step: "01",
     icon: MessageSquare,
-    title: "Tell us the problem",
-    description: "Share your current workflow, messy spreadsheets, or reporting bottlenecks with us.",
-    details: ["Discovery Call", "Data Assessment", "Goal Definition"],
+    title: "Share Your Requirement",
+    description: "Tell us what report you prepare, what data you have, and what you want the final output to show.",
+    details: ["Current process review", "Data Assessment", "Output definition"],
     color: "#0057D9",
     className: "md:col-span-1 lg:col-span-1",
   },
   {
     step: "02",
     icon: Search,
-    title: "We review your requirement",
-    description: "We analyze your data structure to determine the most robust and efficient automation approach.",
-    details: ["Feasibility Check", "Tool Selection"],
+    title: "Review the Scope",
+    description: "We review the available sample data, confirm deliverables, agree on a timeline, and provide a quote before work starts.",
+    details: ["Sample data review", "Timeline", "Firm quote"],
     color: "#00C2FF",
     className: "md:col-span-1 lg:col-span-1",
   },
   {
     step: "03",
-    icon: FileCode2,
-    title: "We define the solution",
-    description: "We outline the architecture, deliverables, and timelines before writing any code.",
-    details: ["Project Scope", "Mockups/Prototypes"],
+    icon: TestTube2,
+    title: "Build and Validate",
+    description: "The reporting solution is prepared and checked against the agreed requirements.",
+    details: ["Development", "Validation against sample"],
     color: "#8B5CF6",
     className: "md:col-span-1 lg:col-span-1",
   },
   {
     step: "04",
-    icon: TestTube2,
-    title: "We build and test",
-    description: "Our experts develop your dashboard or automation, rigorously testing with real scenarios.",
-    details: ["Iterative Development", "Quality Assurance"],
-    color: "#F59E0B",
-    className: "md:col-span-1 lg:col-span-1",
-  },
-  {
-    step: "05",
     icon: CheckCircle,
-    title: "We deliver and support",
-    description: "We hand over the final product with clear documentation, providing ongoing support as needed.",
-    details: ["Training Session", "Documentation", "Ongoing Maintenance"],
+    title: "Handover and Support",
+    description: "You receive the agreed files and usage notes, with any follow-up support defined in the project scope.",
+    details: ["Delivery", "Usage Notes", "Follow-up"],
     color: "#00E5A0",
-    className: "md:col-span-2 lg:col-span-2",
+    className: "md:col-span-1 lg:col-span-3",
   },
 ];
 
@@ -71,7 +62,7 @@ export function PlatformOverview() {
             How It Works
           </p>
           <h2 className="section-title text-white mb-4">
-            A Transparent, <span className="gradient-text">Proven Process</span>
+            A Clear, <span className="gradient-text">Straightforward Process</span>
           </h2>
           <p className="section-subtitle mx-auto">
             We follow a structured approach to ensure your data project is delivered accurately, on time, and without surprises.

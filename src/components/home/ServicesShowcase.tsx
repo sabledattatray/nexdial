@@ -7,10 +7,7 @@ import {
   BarChart,
   PieChart,
   Database,
-  Settings,
-  Zap,
-  Code,
-  LineChart,
+  Repeat,
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
@@ -18,59 +15,31 @@ import Link from "next/link";
 const features = [
   {
     icon: FileSpreadsheet,
-    title: "Advanced Excel Solutions",
-    description: "Complex formulas, dynamic modeling, and workbook redesign to reduce errors and improve reliability.",
+    title: "Excel Data Cleaning & Formatting",
+    description: "Transform messy, unstructured data into clean, usable formats for analysis or upload.",
     color: "#0057D9",
-    href: "/services/advanced-excel",
+    href: "/services/data-cleaning",
   },
   {
     icon: BarChart,
-    title: "MIS & Management Reporting",
-    description: "Daily, weekly, and monthly MIS structures tailored for operations, sales, and finance teams.",
+    title: "MIS Reporting & Dashboards",
+    description: "Regular performance reports built in Excel or Power BI to track your key metrics clearly.",
     color: "#00C2FF",
     href: "/services/mis-reporting",
   },
   {
-    icon: PieChart,
-    title: "Excel Dashboards",
-    description: "Interactive KPI dashboards that turn complex tables into clear, actionable management views.",
+    icon: Repeat,
+    title: "Process Automation",
+    description: "Use Power Query and macros to automate repetitive copy-pasting and formatting tasks.",
     color: "#00E5A0",
-    href: "/services/excel-dashboard",
+    href: "/services/automation",
   },
   {
     icon: Database,
-    title: "Data Cleaning & Management",
-    description: "Standardize formatting, handle missing data, and consolidate messy files into structured datasets.",
+    title: "Data Migration & Validation",
+    description: "Ensure your data is accurate and correctly formatted before moving it to a new CRM or ERP.",
     color: "#8B5CF6",
-    href: "/services/data-cleaning",
-  },
-  {
-    icon: Settings,
-    title: "Excel Automation",
-    description: "Automate repetitive calculations, template updates, and report generation processes.",
-    color: "#F59E0B",
-    href: "/services/excel-automation",
-  },
-  {
-    icon: Zap,
-    title: "Power Query Solutions",
-    description: "Automated data import, transformation, and consolidation workflows from multiple sources.",
-    color: "#EC4899",
-    href: "/services/power-query",
-  },
-  {
-    icon: Code,
-    title: "VBA & Macro Automation",
-    description: "Custom macros for button-driven workflows, formatting, and complex data processing.",
-    color: "#10B981",
-    href: "/services/vba-automation",
-  },
-  {
-    icon: LineChart,
-    title: "Power BI Dashboards",
-    description: "Next-level data visualization with Power BI for robust, shareable business intelligence.",
-    color: "#F43F5E",
-    href: "/services/power-bi",
+    href: "/services/data-migration",
   },
 ];
 
@@ -85,7 +54,7 @@ export function ServicesShowcase() {
             Services
           </p>
           <h2 className="section-title text-white mb-4">
-            From Raw Data to <span className="gradient-text">Decision-Ready Reporting</span>
+            Practical Solutions for <span className="gradient-text">Messy Data</span>
           </h2>
           <p className="section-subtitle mx-auto">
             Explore how we help businesses transform messy spreadsheets into automated, structured solutions.

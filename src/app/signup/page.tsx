@@ -21,6 +21,7 @@ function SignupContent() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [industry, setIndustry] = useState("real_estate");
+  const [customIndustry, setCustomIndustry] = useState("");
   const [seedDemoData, setSeedDemoData] = useState(true);
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
@@ -32,7 +33,13 @@ function SignupContent() {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, seedDemoData, industry }),
+        body: JSON.stringify({ 
+          name, 
+          email, 
+          password, 
+          seedDemoData, 
+          industry: industry === "custom" ? customIndustry : industry 
+        }),
       });
 
       const data = await res.json();
@@ -83,10 +90,12 @@ function SignupContent() {
   }
 
   return (
-    <div className="relative w-full max-w-md bg-[#0F172A]/70 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl overflow-hidden transition-all duration-300">
+    <div className="relative w-full max-w-md bg-[#0F172A]/70 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300">
       {/* Decorative gradients */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#0057D9]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#00E5A0]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[#0057D9]/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#00E5A0]/10 rounded-full blur-3xl" />
+      </div>
 
       {/* Back button */}
       <Link
@@ -103,14 +112,14 @@ function SignupContent() {
           <div className="inline-flex items-center gap-2">
             <div className="px-2 py-0.5 rounded bg-indigo-950/20 text-[#818CF8] border border-indigo-500/10 text-[9px] font-mono font-bold flex items-center gap-1 uppercase">
               <Shield className="w-3 h-3" />
-              Start Free Trial
+              Client Workspace
             </div>
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">
-            Create Your Account
+            Request Client Access
           </h1>
           <p className="text-xs text-slate-400 leading-relaxed">
-            Begin your 14-day free trial. Setup your organization, track leads, and automate client conversations.
+            Register to access your secure data dashboard and structured MIS reports.
           </p>
         </div>
 
@@ -135,7 +144,7 @@ function SignupContent() {
             ) : (
               <GoogleIcon />
             )}
-            <span>Sign Up with Google</span>
+            <span>Continue with Google</span>
           </button>
 
           <div className="relative flex items-center justify-center py-2">
@@ -157,7 +166,7 @@ function SignupContent() {
               <input
                 type="text"
                 required
-                placeholder="Datta Sable"
+                placeholder="John Doe"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={loading || googleLoading}
@@ -175,7 +184,7 @@ function SignupContent() {
               <input
                 type="email"
                 required
-                placeholder="datta@nexdial.io"
+                placeholder="john@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading || googleLoading}
@@ -224,6 +233,27 @@ function SignupContent() {
             </div>
           </div>
 
+          {/* Custom Industry Input */}
+          {industry === "custom" && (
+            <div className="space-y-1.5 animate-in fade-in slide-in-from-top-2 duration-300">
+              <label className="text-[10px] uppercase tracking-wider text-slate-400 pl-1 font-semibold">
+                Specify Your Industry
+              </label>
+              <div className="relative">
+                <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Construction"
+                  value={customIndustry}
+                  onChange={(e) => setCustomIndustry(e.target.value)}
+                  disabled={loading || googleLoading}
+                  className="w-full pl-10 pr-4 py-2.5 bg-[#081120] border border-white/10 text-slate-100 rounded-xl placeholder-slate-650 focus:outline-none focus:border-[#00E5A0] transition-colors shadow-[0_0_15px_rgba(0,229,160,0.1)]"
+                />
+              </div>
+            </div>
+          )}
+
           {/* Seed Demo Data Checkbox */}
           <div className="flex items-center gap-2.5 pl-1 py-1">
             <input
@@ -235,7 +265,7 @@ function SignupContent() {
               className="w-4 h-4 rounded border-white/10 bg-[#081120] text-[#00C2FF] focus:ring-[#00C2FF] focus:ring-opacity-25 transition-all cursor-pointer"
             />
             <label htmlFor="seedDemoData" className="text-[10.5px] text-slate-400 select-none cursor-pointer leading-normal">
-              Pre-populate workspace with realistic sample leads, calls, and follow-ups
+              I understand that access will be granted after review
             </label>
           </div>
 
@@ -251,7 +281,7 @@ function SignupContent() {
                 <span>Creating your account...</span>
               </>
             ) : (
-              <span>Register & Start Trial</span>
+              <span>Request Portal Access</span>
             )}
           </button>
         </form>
@@ -272,7 +302,7 @@ function SignupContent() {
 
 export default function SignupPage() {
   return (
-    <div className="min-h-screen bg-[#081120] flex items-center justify-center p-6 relative">
+    <div className="min-h-screen bg-[#081120] flex items-center justify-center p-6 relative z-10">
       <div className="absolute inset-0 noise-overlay pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#0057D9]/10 to-[#00C2FF]/5 rounded-full blur-3xl pointer-events-none" />
       <Suspense fallback={

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Search, ChevronDown, Check, Briefcase, Plus, Loader2 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 
@@ -26,19 +26,42 @@ interface IndustrySelectorProps {
 }
 
 export default function IndustrySelector({ value, onChange }: IndustrySelectorProps) {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+  const STATIC_CATEGORIES: Category[] = [
+    {
+      id: "core",
+      name: "Core Data Services",
+      industries: [
+        { id: "1", name: "Healthcare & Clinics", slug: "healthcare", icon: "Activity", isPopular: true, pipelineStages: [], leadSources: [] },
+        { id: "2", name: "E-commerce & Retail", slug: "ecommerce", icon: "ShoppingCart", isPopular: true, pipelineStages: [], leadSources: [] },
+        { id: "3", name: "Real Estate", slug: "real-estate", icon: "Building2", isPopular: true, pipelineStages: [], leadSources: [] },
+        { id: "4", name: "Financial Services", slug: "financial", icon: "Landmark", isPopular: true, pipelineStages: [], leadSources: [] },
+        { id: "5", name: "Manufacturing", slug: "manufacturing", icon: "Factory", isPopular: true, pipelineStages: [], leadSources: [] },
+      ]
+    }
+  ];
+
+  const [categories, setCategories] = useState<Category[]>(STATIC_CATEGORIES);
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    fetch("/api/industries")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.categories) setCategories(data.categories);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    // No need to fetch from API since we are using static data for the frontend
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const popularIndustries = useMemo(() => {
@@ -76,7 +99,7 @@ export default function IndustrySelector({ value, onChange }: IndustrySelectorPr
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <div 
         className="w-full px-3 py-2 bg-[#060D1A] border border-white/10 rounded-xl text-xs flex items-center justify-between cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
@@ -122,6 +145,7 @@ export default function IndustrySelector({ value, onChange }: IndustrySelectorPr
                   {popularIndustries.map(ind => (
                     <button
                       key={ind.id}
+                      type="button"
                       onClick={() => { onChange(ind.slug, ind); setIsOpen(false); }}
                       className={`flex items-center gap-2 w-full text-left px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors ${value === ind.slug ? "bg-[#0057D9]/20" : ""}`}
                     >
@@ -141,6 +165,7 @@ export default function IndustrySelector({ value, onChange }: IndustrySelectorPr
                   {category.industries.map(ind => (
                     <button
                       key={ind.id}
+                      type="button"
                       onClick={() => { onChange(ind.slug, ind); setIsOpen(false); }}
                       className={`flex items-center gap-2 w-full text-left px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors ${value === ind.slug ? "bg-[#0057D9]/20" : ""}`}
                     >
@@ -160,6 +185,7 @@ export default function IndustrySelector({ value, onChange }: IndustrySelectorPr
             )}
             
             <button
+              type="button"
               onClick={() => { onChange("custom", null); setIsOpen(false); }}
               className={`flex items-center gap-2 w-full text-left px-2 py-2 rounded-lg hover:bg-white/5 transition-colors border-t border-white/5 mt-2 ${value === "custom" ? "bg-[#00E5A0]/10" : ""}`}
             >

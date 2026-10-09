@@ -73,10 +73,12 @@ function LoginContent() {
   };
 
   return (
-    <div className="relative w-full max-w-md bg-[#0F172A]/70 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl overflow-hidden transition-all duration-300">
+    <div className="relative w-full max-w-md bg-[#0F172A]/70 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300">
       {/* Decorative gradients */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#0057D9]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#00E5A0]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[#0057D9]/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#00E5A0]/10 rounded-full blur-3xl" />
+      </div>
 
       {/* Back button */}
       <Link
@@ -147,7 +149,7 @@ function LoginContent() {
               <input
                 type="email"
                 required
-                placeholder="agent@nexdial.io"
+                placeholder="john@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading || googleLoading}
@@ -208,7 +210,7 @@ function LoginContent() {
         <div className="text-center pt-2">
           <p className="text-[11px] text-slate-400">
             Need a custom solution?{" "}
-            <Link href="/#contact" className="text-[#00C2FF] hover:underline font-bold transition-all">
+            <Link href="/contact" className="text-[#00C2FF] hover:underline font-bold transition-all">
               Book a Consultation
             </Link>
           </p>
@@ -220,7 +222,7 @@ function LoginContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#081120] flex items-center justify-center p-6 relative">
+    <div className="min-h-screen bg-[#081120] flex items-center justify-center p-6 relative z-10">
       <div className="absolute inset-0 noise-overlay pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#0057D9]/10 to-[#00C2FF]/5 rounded-full blur-3xl pointer-events-none" />
       <Suspense fallback={
