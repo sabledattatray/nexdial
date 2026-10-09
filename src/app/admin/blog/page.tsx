@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { 
   Search, 
   Filter, 
-  MoreVertical, 
   Edit,
   Trash2,
   Eye,
@@ -13,10 +12,11 @@ import {
   Calendar,
   ChevronLeft,
   ChevronRight,
-  Loader2
+  Loader2,
+  ExternalLink
 } from "lucide-react";
 import Link from "next/link";
-import { getArticles } from "../actions";
+import { getArticles, deleteArticle } from "../actions";
 
 type Article = {
   id: string;
@@ -26,6 +26,7 @@ type Article = {
   status: string;
   views: number;
   date: string;
+  slug?: string;
 };
 
 const StatusBadge = ({ status }: { status: string }) => {
@@ -45,6 +46,8 @@ const StatusBadge = ({ status }: { status: string }) => {
 
 export default function AdminBlogPage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [categoryFilter, setCategoryFilter] = useState("ALL");
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -54,7 +57,7 @@ export default function AdminBlogPage() {
         const data = await getArticles();
         setArticles(data);
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load articles:", err);
       } finally {
         setIsLoading(false);
       }
@@ -62,10 +65,28 @@ export default function AdminBlogPage() {
     loadArticles();
   }, []);
 
-  const filteredArticles = articles.filter(a => 
-    a.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    a.author.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleDelete = async (id: string, title: string) => {
+    if (!window.confirm(`Are you sure you want to delete "${title}"?`)) {
+      return;
+    }
+    try {
+      await deleteArticle(id);
+      setArticles((prev) => prev.filter((a) => a.id !== id));
+    } catch (err: any) {
+      alert("Failed to delete article: " + (err.message || "Unknown error"));
+    }
+  };
+
+  const categories = Array.from(new Set(articles.map((a) => a.category))).filter(Boolean);
+
+  const filteredArticles = articles.filter((a) => {
+    const matchesSearch = 
+      a.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      a.author.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === "ALL" || a.status === statusFilter;
+    const matchesCategory = categoryFilter === "ALL" || a.category === categoryFilter;
+    return matchesSearch && matchesStatus && matchesCategory;
+  });
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
@@ -76,7 +97,10 @@ export default function AdminBlogPage() {
           <p className="text-slate-400 mt-1">Manage your content marketing, publications, and SEO.</p>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/admin/blog/create" className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0057D9] to-[#00C2FF] hover:opacity-90 rounded-xl text-white text-sm font-bold transition-opacity shadow-lg shadow-[#0057D9]/20">
+          <Link 
+            href="/admin/blog/create" 
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0057D9] to-[#00C2FF] hover:opacity-90 rounded-xl text-white text-sm font-bold transition-opacity shadow-lg shadow-[#0057D9]/20"
+          >
             <Plus className="w-4 h-4" /> Create Article
           </Link>
         </div>
@@ -95,12 +119,34 @@ export default function AdminBlogPage() {
           />
         </div>
         <div className="flex items-center gap-3 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
-          <button className="whitespace-nowrap flex items-center justify-center gap-2 px-4 py-2 bg-[#050A14] border border-white/10 rounded-xl text-slate-300 text-sm font-medium hover:border-white/20 transition-colors">
-            <Filter className="w-4 h-4" /> Status: All
-          </button>
-          <button className="whitespace-nowrap flex items-center justify-center gap-2 px-4 py-2 bg-[#050A14] border border-white/10 rounded-xl text-slate-300 text-sm font-medium hover:border-white/20 transition-colors">
-            <Filter className="w-4 h-4" /> Category: All
-          </button>
+          <div className="flex items-center gap-2 bg-[#050A14] border border-white/10 rounded-xl px-3 py-1.5 text-slate-300 text-sm">
+            <Filter className="w-4 h-4 text-slate-500" />
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="bg-transparent text-slate-300 text-sm focus:outline-none cursor-pointer"
+            >
+              <option value="ALL" className="bg-[#0A1628] text-white">Status: All</option>
+              <option value="PUBLISHED" className="bg-[#0A1628] text-white">Status: Published</option>
+              <option value="DRAFT" className="bg-[#0A1628] text-white">Status: Draft</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2 bg-[#050A14] border border-white/10 rounded-xl px-3 py-1.5 text-slate-300 text-sm">
+            <Filter className="w-4 h-4 text-slate-500" />
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="bg-transparent text-slate-300 text-sm focus:outline-none cursor-pointer"
+            >
+              <option value="ALL" className="bg-[#0A1628] text-white">Category: All</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat} className="bg-[#0A1628] text-white">
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -129,7 +175,7 @@ export default function AdminBlogPage() {
               ) : filteredArticles.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
-                    No articles found matching your search.
+                    No articles found matching your criteria.
                   </td>
                 </tr>
               ) : (
@@ -164,13 +210,32 @@ export default function AdminBlogPage() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-2 text-slate-400 hover:text-[#00C2FF] hover:bg-[#00C2FF]/10 rounded-lg transition-colors" title="Preview">
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Edit">
+                        {article.slug ? (
+                          <Link 
+                            href={`/blog/${article.slug}`} 
+                            target="_blank"
+                            className="p-2 text-slate-400 hover:text-[#00C2FF] hover:bg-[#00C2FF]/10 rounded-lg transition-colors" 
+                            title="Preview Article on Site"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </Link>
+                        ) : (
+                          <button className="p-2 text-slate-400 hover:text-[#00C2FF] hover:bg-[#00C2FF]/10 rounded-lg transition-colors" title="Preview">
+                            <Eye className="w-4 h-4" />
+                          </button>
+                        )}
+                        <Link 
+                          href={`/admin/blog/create?slug=${article.slug || ''}`}
+                          className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors" 
+                          title="Edit"
+                        >
                           <Edit className="w-4 h-4" />
-                        </button>
-                        <button className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors" title="Delete">
+                        </Link>
+                        <button 
+                          onClick={() => handleDelete(article.id, article.title)}
+                          className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors" 
+                          title="Delete Article"
+                        >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -182,10 +247,10 @@ export default function AdminBlogPage() {
           </table>
         </div>
         
-        {/* Pagination */}
+        {/* Pagination / Summary */}
         {!isLoading && filteredArticles.length > 0 && (
           <div className="px-6 py-4 border-t border-white/5 flex items-center justify-between">
-            <span className="text-sm text-slate-500">Showing 1 to {filteredArticles.length} of {filteredArticles.length} entries</span>
+            <span className="text-sm text-slate-500">Showing {filteredArticles.length} of {articles.length} articles</span>
             <div className="flex items-center gap-2">
               <button className="p-1.5 rounded-lg border border-white/10 text-slate-500 hover:text-white hover:bg-white/5 disabled:opacity-50" disabled>
                 <ChevronLeft className="w-4 h-4" />
@@ -193,7 +258,7 @@ export default function AdminBlogPage() {
               <button className="w-8 h-8 rounded-lg bg-[#0057D9] text-white text-sm font-medium flex items-center justify-center">
                 1
               </button>
-              <button className="p-1.5 rounded-lg border border-white/10 text-slate-400 hover:text-white hover:bg-white/5 disabled:opacity-50" disabled>
+              <button className="p-1.5 rounded-lg border border-white/10 text-slate-500 hover:text-white hover:bg-white/5 disabled:opacity-50" disabled>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { getAuthenticatedSession } from "@/lib/auth";
+import { ARTICLES } from "@/lib/blog-content";
 
 export async function getDashboardStats() {
   const session = await getAuthenticatedSession();
@@ -80,21 +81,62 @@ export async function getArticles() {
 
   try {
     const posts = await prisma.post.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: { author: true }
+      orderBy: { createdAt: 'desc' }
     });
 
-    return posts.map(p => ({
-      id: p.id,
-      title: p.title,
-      author: p.author?.name || p.author?.email || "NexDial",
-      category: p.category || "General",
-      status: p.published ? "PUBLISHED" : "DRAFT",
-      views: p.viewCount ?? 0,
-      date: p.createdAt.toISOString().split("T")[0],
+    if (posts && posts.length > 0) {
+      return posts.map(p => ({
+        id: p.id,
+        title: p.title,
+        author: "Datta Sable",
+        category: p.category || "Sales Strategy",
+        status: p.published ? "PUBLISHED" : "DRAFT",
+        views: 0,
+        date: p.date || p.createdAt.toISOString().split("T")[0],
+        slug: p.slug,
+      }));
+    }
+
+    // Fallback if DB table has not been populated
+    return Object.entries(ARTICLES).map(([slug, post], index) => ({
+      id: `fallback-${index + 1}`,
+      title: post.title,
+      author: post.author || "Datta Sable",
+      category: post.category || "Sales Strategy",
+      status: "PUBLISHED",
+      views: 0,
+      date: post.date || new Date().toISOString().split("T")[0],
+      slug: slug,
     }));
-  } catch {
-    return [];
+  } catch (err) {
+    console.error("Error in getArticles:", err);
+    return Object.entries(ARTICLES).map(([slug, post], index) => ({
+      id: `fallback-${index + 1}`,
+      title: post.title,
+      author: post.author || "Datta Sable",
+      category: post.category || "Sales Strategy",
+      status: "PUBLISHED",
+      views: 0,
+      date: post.date || new Date().toISOString().split("T")[0],
+      slug: slug,
+    }));
+  }
+}
+
+export async function deleteArticle(id: string) {
+  const session = await getAuthenticatedSession();
+  if (!session || (session.user as any)?.role !== 'ADMIN') {
+    throw new Error('Unauthorized');
+  }
+
+  try {
+    await prisma.post.delete({
+      where: { id }
+    });
+    return { success: true };
+  } catch (error: any) {
+    console.error("Failed to delete article:", error);
+    throw new Error(`Failed to delete article: ${error.message}`);
   }
 }
 
