@@ -55,10 +55,12 @@ const footerLinks = {
     { label: "Power BI", href: "/services/power-bi" },
   ],
   resources: [
-    { label: "Finance Teams", href: "/industries/finance" },
-    { label: "Operations", href: "/industries/operations" },
-    { label: "Sales & Marketing", href: "/industries/sales" },
-    { label: "HR & Admin", href: "/industries/hr" },
+    { label: "Finance Teams", href: "/use-cases/finance" },
+    { label: "Operations", href: "/use-cases/operations" },
+    { label: "Sales Teams", href: "/use-cases/sales" },
+    { label: "Resources & Templates", href: "/resources" },
+    { label: "Case Studies", href: "/case-studies" },
+    { label: "Pricing & Retainers", href: "/pricing" },
   ],
   company: [
     { label: "About Us", href: "/about" },
