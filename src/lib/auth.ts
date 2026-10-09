@@ -24,11 +24,12 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        if (credentials.email === "admin@nexdial.io" && credentials.password === "admin123") {
+        const adminEmails = ["admin@nexdial.io", "admin@nexdial.ai", "sabledattatray@gmail.com"];
+        if (adminEmails.includes(credentials.email) && credentials.password === "admin123") {
           return {
             id: "mock-admin-id",
             name: "Datta Sable",
-            email: "admin@nexdial.io",
+            email: credentials.email,
             role: "ADMIN",
           };
         }
@@ -80,19 +81,25 @@ export const authOptions: NextAuthOptions = {
       }
       return true;
     },
-    async jwt({ token, user, trigger }) {
-      if (user || trigger === "update") {
-        if (token.email) {
-          const dbUser = await prisma.user.findUnique({
-            where: { email: token.email },
-            select: { id: true, role: true },
-          }).catch(() => null);
-          if (dbUser) {
-            token.id = dbUser.id;
-            token.role = dbUser.role;
-          }
+    async jwt({ token, user }) {
+      // If user object is present (just signed in), carry over role & id directly
+      if (user) {
+        token.id = (user as any).id;
+        token.role = (user as any).role;
+      }
+
+      // If role is still missing (e.g. Google SSO first sign-in), fetch from DB
+      if (!token.role && token.email) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: token.email as string },
+          select: { id: true, role: true },
+        }).catch(() => null);
+        if (dbUser) {
+          token.id = dbUser.id;
+          token.role = dbUser.role;
         }
       }
+
       return token;
     },
     async session({ session, token }) {

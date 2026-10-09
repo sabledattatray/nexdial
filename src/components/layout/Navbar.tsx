@@ -70,6 +70,7 @@ const navLinks = [
         title: "Resources",
         items: [
           { label: "Portfolio", href: "/portfolio", icon: BookOpen, desc: "Sample workflows" },
+          { label: "Blog", href: "/blog", icon: FileText, desc: "Insights & Tutorials" },
           { label: "Contact Us", href: "/contact", icon: Mail, desc: "Get a free quote" },
         ],
       },

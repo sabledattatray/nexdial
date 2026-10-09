@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { getAuthenticatedSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Admin Dashboard | NexDial",
@@ -9,7 +11,13 @@ export const metadata = {
   },
 };
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const session = await getAuthenticatedSession();
+  
+  if (!session || (session.user as any)?.role !== 'ADMIN') {
+    redirect("/login");
+  }
+
   return (
     <div className="min-h-screen bg-[#050A14] text-slate-200">
       <AdminSidebar />

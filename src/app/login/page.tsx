@@ -50,9 +50,9 @@ function LoginContent() {
       } else if (res?.ok) {
         // Success
         if (res.fallback) {
-          window.location.href = "/crm";
+          window.location.href = "/admin";
         } else {
-          router.push("/crm");
+          router.push("/admin");
         }
       }
     } catch (err) {
@@ -65,7 +65,7 @@ function LoginContent() {
     setError("");
     setGoogleLoading(true);
     try {
-      await signIn("google", { callbackUrl: "/crm" });
+      await signIn("google", { callbackUrl: "/admin" });
     } catch (err) {
       setError("Google authentication could not be initialized.");
       setGoogleLoading(false);
