@@ -154,69 +154,73 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Quick Contact Items */}
-            <div className="space-y-4">
-              <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] flex gap-5 items-start overflow-hidden group hover:border-[#00C2FF]/30 hover:bg-[#00C2FF]/5 hover:shadow-[0_4px_25px_rgba(0,194,255,0.06)] transition-all duration-300">
-                <div className="absolute left-0 top-0 w-1.5 h-full bg-[#00C2FF]" />
+          <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+            {/* 1. Email Support */}
+            <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between gap-5 overflow-hidden group hover:border-[#00C2FF]/30 hover:bg-[#00C2FF]/5 hover:shadow-[0_4px_25px_rgba(0,194,255,0.06)] transition-all duration-300 min-h-[112px] h-full">
+              <div className="absolute left-0 top-0 w-1.5 h-full bg-[#00C2FF]" />
+              <div className="flex items-center gap-5 min-w-0">
                 <div className="w-12 h-12 rounded-xl bg-[#00C2FF]/10 border border-[#00C2FF]/20 flex items-center justify-center text-[#00C2FF] flex-shrink-0 transition-transform group-hover:scale-110">
                   <Mail className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]">Email Support</p>
-                  <a href="mailto:info@nexdial.io" className="text-base font-extrabold text-white hover:text-[#00C2FF] transition-colors mt-1 block">
+                  <a href="mailto:info@nexdial.io" className="text-base font-extrabold text-white hover:text-[#00C2FF] transition-colors mt-1 block truncate">
                     info@nexdial.io
                   </a>
                 </div>
               </div>
+            </div>
 
-              <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] flex gap-5 items-start overflow-hidden group hover:border-[#00E5A0]/30 hover:bg-[#00E5A0]/5 hover:shadow-[0_4px_25px_rgba(0,229,160,0.06)] transition-all duration-300">
-                <div className="absolute left-0 top-0 w-1.5 h-full bg-[#00E5A0]" />
+            {/* 2. WhatsApp Support */}
+            <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between gap-5 overflow-hidden group hover:border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/5 hover:shadow-[0_4px_25px_rgba(139,92,246,0.06)] transition-all duration-300 min-h-[112px] h-full">
+              <div className="absolute left-0 top-0 w-1.5 h-full bg-[#8B5CF6]" />
+              <div className="flex items-center gap-5 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] flex-shrink-0 transition-transform group-hover:scale-110">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5">
+                    WhatsApp Support
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
+                    </span>
+                  </p>
+                  <a href="https://wa.me/918010803756" target="_blank" rel="noopener noreferrer" className="text-base font-extrabold text-[#00E5A0] hover:underline mt-1 block truncate">
+                    Chat with Sales Support
+                  </a>
+                </div>
+              </div>
+              <ArrowRight className="w-5 h-5 text-[#8B5CF6] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all flex-shrink-0" />
+            </div>
+
+            {/* 3. Phone Support */}
+            <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between gap-5 overflow-hidden group hover:border-[#00E5A0]/30 hover:bg-[#00E5A0]/5 hover:shadow-[0_4px_25px_rgba(0,229,160,0.06)] transition-all duration-300 min-h-[112px] h-full">
+              <div className="absolute left-0 top-0 w-1.5 h-full bg-[#00E5A0]" />
+              <div className="flex items-center gap-5 min-w-0">
                 <div className="w-12 h-12 rounded-xl bg-[#00E5A0]/10 border border-[#00E5A0]/20 flex items-center justify-center text-[#00E5A0] flex-shrink-0 transition-transform group-hover:scale-110">
                   <Phone className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]">Phone Support</p>
-                  <a href="tel:+918010803756" className="text-base font-extrabold text-white hover:text-[#00C2FF] transition-colors mt-1 block">
+                  <a href="tel:+918010803756" className="text-base font-extrabold text-white hover:text-[#00C2FF] transition-colors mt-1 block truncate">
                     +91 8010803756
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Address & WhatsApp */}
-            <div className="space-y-4">
-              <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] flex gap-5 items-center justify-between overflow-hidden group hover:border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/5 hover:shadow-[0_4px_25px_rgba(139,92,246,0.06)] transition-all duration-300">
-                <div className="absolute left-0 top-0 w-1.5 h-full bg-[#8B5CF6]" />
-                <div className="flex gap-5 items-center">
-                  <div className="w-12 h-12 rounded-xl bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] flex-shrink-0 transition-transform group-hover:scale-110">
-                    <MessageSquare className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] flex items-center gap-1.5">
-                      WhatsApp Support
-                      <span className="flex h-2 w-2 relative">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22C55E] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22C55E]"></span>
-                      </span>
-                    </p>
-                    <a href="https://wa.me/918010803756" target="_blank" rel="noopener noreferrer" className="text-base font-extrabold text-[#00E5A0] hover:underline mt-1 block">
-                      Chat with Sales Support
-                    </a>
-                  </div>
-                </div>
-                <ArrowRight className="w-5 h-5 text-[#8B5CF6] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-              </div>
-
-              <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04] flex gap-5 items-start overflow-hidden group hover:border-[#00C2FF]/20 transition-all duration-300 shadow-md h-full">
-                <div className="absolute left-0 top-0 w-1.5 h-full bg-gradient-to-b from-[#00E5A0] to-[#00C2FF]" />
-                <div className="w-12 h-12 rounded-xl bg-[#00E5A0]/10 border border-[#00E5A0]/20 flex items-center justify-center text-[#00E5A0] flex-shrink-0">
+            {/* 4. NexDial HQ */}
+            <div className="relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between gap-5 overflow-hidden group hover:border-[#00C2FF]/30 hover:bg-[#00C2FF]/5 hover:shadow-[0_4px_25px_rgba(0,194,255,0.06)] transition-all duration-300 min-h-[112px] h-full">
+              <div className="absolute left-0 top-0 w-1.5 h-full bg-gradient-to-b from-[#00E5A0] to-[#00C2FF]" />
+              <div className="flex items-center gap-5 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-[#00E5A0]/10 border border-[#00E5A0]/20 flex items-center justify-center text-[#00E5A0] flex-shrink-0 transition-transform group-hover:scale-110">
                   <MapPin className="w-5 h-5 text-[#00E5A0]" />
                 </div>
-                <div className="space-y-1.5">
-                  <span className="text-[10px] uppercase font-extrabold text-[#CBD5E1] tracking-wider">NexDial HQ</span>
-                  <p className="text-sm text-[#94A3B8] leading-relaxed font-medium">
-                    Badlapur East, Dist- Thane,<br />Maharashtra, India- 421503
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]">NexDial HQ</p>
+                  <p className="text-sm font-semibold text-slate-200 mt-1 leading-snug">
+                    Badlapur East, Dist- Thane, Maharashtra, India- 421503
                   </p>
                 </div>
               </div>
