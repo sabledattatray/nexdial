@@ -10,11 +10,11 @@ const cases = [
     id: "sales-kpi",
     category: "Sample Project",
     title: "Excel Sales & KPI Dashboard — Sample Project",
-    description: "Problem: Raw sales records can be difficult to summarize consistently. Approach: Create a structured workbook that organizes source data and presents key summaries through PivotTables and charts.",
+    description: "Problem: Raw sales records can be difficult to summarize consistently. Solution: Create a structured workbook that organizes source data and presents key summaries through PivotTables and charts.",
     metrics: [
-      { label: "Deliverable", value: "Summary Dashboard", icon: TrendingUp, color: "#0057D9" },
-      { label: "Tools Used", value: "Excel, PivotTables", icon: ShieldCheck, color: "#00C2FF" },
-      { label: "Feature", value: "KPI Calculations", icon: Clock, color: "#00E5A0" },
+      { label: "Deliverable", value: "Summary Dashboard", subLabel: "Output", icon: TrendingUp, color: "#0057D9" },
+      { label: "Tools Used", value: "Excel, PivotTables", subLabel: "Tech Stack", icon: ShieldCheck, color: "#00C2FF" },
+      { label: "Feature", value: "KPI Calculations", subLabel: "Highlights", icon: Clock, color: "#00E5A0" },
     ],
     bgGradient: "from-[#0057D9]/10 via-[#00C2FF]/5 to-transparent",
     borderGlow: "rgba(0, 194, 255, 0.2)",
@@ -24,11 +24,11 @@ const cases = [
     id: "monthly-mis",
     category: "Sample Project",
     title: "Monthly MIS Reporting — Sample Project",
-    description: "Problem: Recurring reports require repeated formatting. Approach: Build a consistent workbook structure and reporting template using agreed metrics and source data.",
+    description: "Problem: Recurring reports require repeated formatting. Solution: Build a consistent workbook structure and reporting template using agreed metrics and source data.",
     metrics: [
-      { label: "Deliverable", value: "Reporting Template", icon: Users, color: "#8B5CF6" },
-      { label: "Tools Used", value: "Excel, Formulas", icon: ArrowUpRight, color: "#EC4899" },
-      { label: "Benefit", value: "Consistent Structure", icon: TrendingUp, color: "#00E5A0" },
+      { label: "Deliverable", value: "Reporting Template", subLabel: "Output", icon: Users, color: "#8B5CF6" },
+      { label: "Tools Used", value: "Excel, Formulas", subLabel: "Tech Stack", icon: ArrowUpRight, color: "#EC4899" },
+      { label: "Benefit", value: "Consistent Structure", subLabel: "Highlights", icon: TrendingUp, color: "#00E5A0" },
     ],
     bgGradient: "from-[#8B5CF6]/10 via-[#EC4899]/5 to-transparent",
     borderGlow: "rgba(139, 92, 246, 0.2)",
@@ -38,11 +38,11 @@ const cases = [
     id: "data-cleanup",
     category: "Sample Project",
     title: "Spreadsheet Cleanup & Consolidation — Sample Project",
-    description: "Problem: Multiple spreadsheets contain inconsistent formats and repeated records. Approach: Apply documented cleanup rules, standardize fields, and prepare a structured output dataset.",
+    description: "Problem: Multiple spreadsheets contain inconsistent formats and repeated records. Solution: Apply documented cleanup rules, standardize fields, and prepare a structured output dataset.",
     metrics: [
-      { label: "Deliverable", value: "Cleaned Dataset", icon: ShieldCheck, color: "#00E5A0" },
-      { label: "Tools Used", value: "Power Query, Excel", icon: TrendingUp, color: "#0057D9" },
-      { label: "Output", value: "Exception List", icon: ShieldCheck, color: "#00C2FF" },
+      { label: "Deliverable", value: "Cleaned Dataset", subLabel: "Output", icon: ShieldCheck, color: "#00E5A0" },
+      { label: "Tools Used", value: "Power Query", subLabel: "Tech Stack", icon: TrendingUp, color: "#0057D9" },
+      { label: "Output", value: "Exception List", subLabel: "Highlights", icon: ShieldCheck, color: "#00C2FF" },
     ],
     bgGradient: "from-[#00E5A0]/10 via-[#0057D9]/5 to-transparent",
     borderGlow: "rgba(0, 229, 160, 0.2)",
@@ -182,7 +182,7 @@ export function CaseStudies() {
                           </div>
                           <div className="min-w-0">
                             <p className="text-[10px] sm:text-[11px] text-[#64748B] font-medium leading-tight break-words">{metric.label}</p>
-                            <p className="text-[7px] sm:text-[8px] font-semibold text-slate-500 opacity-60 mt-0.5 uppercase tracking-wider">Impact Measured</p>
+                            <p className="text-[7px] sm:text-[8px] font-semibold text-slate-500 opacity-60 mt-0.5 uppercase tracking-wider">{metric.subLabel}</p>
                           </div>
                         </div>
                         <span

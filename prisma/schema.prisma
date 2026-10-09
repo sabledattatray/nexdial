@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -6,38 +9,122 @@ datasource db {
   provider = "postgresql"
 }
 
-// =======================
-// NEXTAUTH REQUIRED MODELS
-// =======================
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // Hashed password for local admin
+  role          String    @default("USER") // USER, ADMIN
+  createdAt     DateTime  @default(now())
+  lastLoginAt   DateTime?
+  accounts      Account[]
+  sessions      Session[]
+}
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String  @map("user_id")
-  type              String
-  provider          String
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  
+  access_token       String?  
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  
+  session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@map("accounts")
 }
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token")
-  userId       String   @map("user_id")
+  sessionToken String   @unique
+  userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  @@map("sessions")
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  category    String
+  description String   
+  impact      String?
+  tools       String // Array of tools used
+  color       String?  @default("#c9f31d")
+  imageUrl    String?
+  client      String?
+  problem     String?  
+  solution    String?  
+  github      String?
+  live        String?
+  published   Boolean  @default(true)
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AnalyticsStat {
+  id        String   @id @default(cuid())
+  type      String   // "VISITORS", "BOUNCE_RATE", "CONVERSION", etc.
+  value     String
+  label     String
+  date      DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String   
+  status    String   @default("UNREAD") // UNREAD, READ, ARCHIVED
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  category  String   @default("General")
+  excerpt   String   
+  content   String   
+  readTime  Int      @default(5)
+  date      String   @default("")
+  color     String?
+  icon      String?
+  image     String?
+  published Boolean  @default(true)
+  blocks    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String   // LOGIN, LOGOUT, CREATE_POST, DELETE_POST, etc.
+  status    String   // SUCCESS, FAILURE
+  details   String?  
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+model PageView {
+  id        String   @id @default(cuid())
+  url       String
+  referrer  String?
+  userAgent String?
+  ipHash    String?
+  city      String?
+  country   String?
+  createdAt DateTime @default(now())
 }
 
 model VerificationToken {
@@ -46,576 +133,234 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-  @@map("verification_tokens")
 }
 
-// =======================
-// APPLICATION MODELS
-// =======================
-
-model Workspace {
-  id           String  @id @default(cuid())
-  name         String
-  tagline      String?
-  primaryColor String? @default("#0057D9")
-  logoUrl      String?
-
-  // Settings
-  whatsappNumber String?
-  supportEmail   String?
-
-  // Onboarding Metadata
-  onboardingData Json? @map("onboarding_data")
-
-  // Billing & Status
-  plan        String    @default("TRIAL") // TRIAL, SMALL, MEDIUM, LARGE
-  status      String    @default("ACTIVE") // ACTIVE, SUSPENDED
-  razorpayId  String?
-  trialEndsAt DateTime?
-
-  // Metrics
-  healthScore Int       @default(100) @map("health_score")
-  lastLoginAt DateTime? @map("last_login_at")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  users        User[]
-  leads        Lead[]
-  integrations Integration[]
-  routingRules RoutingRule[]
-  auditLogs    AuditLog[]
-
-  subscriptions Subscription[]
-  transactions  Transaction[]
-
-  // Restaurant Relations
-  tables         Table[]
-  menuCategories MenuCategory[]
-  orders         Order[]
-
-  conversations  Conversation[]
-
-  @@map("workspaces")
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  password      String?
-  role          Role      @default(VIEWER)
-  onboarded     Boolean   @default(false)
-  industry      String?
-  phone         String?
-  jobTitle      String?   @map("job_title")
-
-  workspaceId String?    @map("workspace_id")
-  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  // NextAuth
-  accounts Account[]
-  sessions Session[]
-
-  // Relations
-  calls            Call[]
-  activities       Activity[]
-  assignedLeads    Lead[]     @relation("AssignedLeads")
-  restaurantOrders Order[]
-  sentMessages     Message[]
-
-  @@map("users")
-}
-
-enum Role {
-  ADMIN
-  SALES
-  VIEWER
-  WAITER
-}
-
-model Lead {
-  id     String     @id @default(uuid()) @db.Uuid
-  name   String
-  phone  String
-  email  String?
-  source LeadSource @default(MANUAL)
-  status LeadStatus @default(NEW)
-  tags   String[]
-
-  workspaceId String    @map("workspace_id")
-  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-
-  assignedToId String?   @map("assigned_to_id")
-  assignedTo   User?     @relation("AssignedLeads", fields: [assignedToId], references: [id], onDelete: SetNull)
-  followUpDate DateTime? @map("follow_up_date")
-  notes        String[]
-  
-  // AI Integration
-  aiScore      Int?      @map("ai_score")
-  aiCertainty  Int?      @default(100) @map("ai_certainty")
-
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime  @updatedAt @map("updated_at")
-
-  // Relations
-  calls             Call[]
-  activities        Activity[]
-  followUps         FollowUp[]
-  aiRecommendations AIRecommendation[]
-  conversations     Conversation[]
-
-  // Performance Indexes
-  @@index([status])
-  @@index([workspaceId])
-  @@index([assignedToId])
-  @@index([followUpDate])
-  @@index([createdAt])
-  @@index([phone])
-  @@index([email])
-  @@map("leads")
-}
-
-// =======================
-// MESSAGING & INBOX
-// =======================
-
-model Conversation {
-  id          String   @id @default(cuid())
-  leadId      String   @map("lead_id") @db.Uuid
-  workspaceId String   @map("workspace_id")
-  channel     String   @default("WHATSAPP") // WHATSAPP, SMS, EMAIL
-  status      String   @default("OPEN")     // OPEN, CLOSED, SNOOZED
-  unreadCount Int      @default(0) @map("unread_count")
-  lastMessageAt DateTime @default(now()) @map("last_message_at")
-  
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  messages  Message[]
-
-  @@unique([leadId, channel]) // One active conversation per channel per lead
-  @@index([workspaceId, status])
-  @@index([lastMessageAt])
-  @@map("conversations")
-}
-
-model Message {
+model Page {
   id             String   @id @default(cuid())
-  conversationId String   @map("conversation_id")
-  direction      String   // INBOUND, OUTBOUND
-  content        String   @db.Text
-  type           String   @default("TEXT") // TEXT, IMAGE, DOCUMENT, TEMPLATE
-  status         String   @default("SENT") // SENT, DELIVERED, READ, FAILED, RECEIVED
+  title          String
+  slug           String   @unique
+  content        String   
+  excerpt        String?  
+  published      Boolean  @default(true)
+  focusedKeyword String?  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  company   String
+  content   String   
+  rating    Int      @default(5)
+  status    String   @default("PENDING") // PENDING, APPROVED
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id        String   @id @default(cuid())
+  title     String
+  desc      String   
+  price     String
+  status    String   @default("Active") // Active, Inactive
+  category  String?
+  orders    Int      @default(0)
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Job {
+  id               String      @id @default(cuid())
+  title            String
+  department       String
+  location         String
+  salary           String      // Salary Range
+  experience       String      // Experience Required
+  description      String      
+  requirements     String      
+  responsibilities String      
+  skillsRequired   String      // comma-separated or stored as string
+  benefits         String      
+  status           String      @default("OPEN") // OPEN, CLOSED
+  applicants       Applicant[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+model Applicant {
+  id                 String   @id @default(cuid())
+  applicationId      String   @unique // DS-2026-XXXX format
+  jobId              String
+  fullName           String
+  email              String
+  mobile             String
+  alternateMobile    String?
+  currentLocation    String
+  preferredLocation  String?
+  currentCompany     String?
+  currentDesignation String?
+  totalExperience    String
+  relevantExperience String
+  currentSalary      String?
+  expectedSalary     String
+  noticePeriod       String
+  availableFrom      String?
+  skills             String   // Comma-separated or JSON string of tags
+  highestQualification String
+  university         String
+  passingYear        String
+  cgpa               String
+  linkedin           String?
+  github             String?
+  portfolio          String?
+  kaggle             String?
+  whyJoin            String   
+  achievement        String   
+  resumeUrl          String
+  portfolioFileUrl   String?
+  status             String   @default("New") // New, Under Review, Shortlisted, Interview Scheduled, Selected, Rejected
+  matchScore         Int      @default(0) // 0-100 score
   
-  metaId         String?  @unique @map("meta_id") // Meta's official WhatsApp message ID
-  senderId       String?  @map("sender_id")       // If outbound, which User sent it?
+  // New Recruitment Portal Fields
+  whatsappNumber            String?
+  dateOfBirth              String?
+  gender                   String?
+  currentAddress           String?
+  is10thPass               Boolean?  @default(false)
+  hasCollectionExperience   Boolean?  @default(false)
+  hasTeamHandlingExperience Boolean?  @default(false)
+  areaFamiliarity          String?
+  hasTwoWheeler            Boolean?  @default(false)
+  hasDrivingLicense        Boolean?  @default(false)
+  aadhaarUrl               String?
+  photoUrl                 String?
+  isImmediateJoiner        Boolean?  @default(false)
+  recruitmentStatus        String    @default("Application Received")
+  interviewDate            String?
+  joiningDate              String?
+  remarks                  String?   
+  candidateSource          String?
+  applicationScore         Int?
+  resumeBase64             String?   
+  aadhaarBase64            String?   
+  photoBase64              String?   
+  portfolioBase64          String?   
 
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
+  job                Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
-  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-  sender       User?        @relation(fields: [senderId], references: [id], onDelete: SetNull)
-
-  @@index([conversationId])
-  @@index([status])
-  @@index([createdAt])
-  @@map("messages")
+  @@unique([email, mobile]) // For duplicate prevention
 }
 
-enum LeadSource {
-  WHATSAPP
-  CALL
-  FORM
-  MANUAL
-  CSV
-  WEBSITE
+model SystemSetting {
+  key       String   @id
+  value     String   
+  updatedAt DateTime @updatedAt
 }
 
-enum LeadStatus {
-  NEW
-  CONTACTED
-  IN_PROGRESS
-  INTERESTED
-  CONVERTED
-  LOST
+model Cohort {
+  id         String              @id @default(cuid())
+  name       String              @unique // Batch 1 - July 2026, Weekend Cohort
+  status     String              @default("ACTIVE") // ACTIVE, COMPLETED, UPCOMING
+  requests   MentorshipRequest[]
+  createdAt  DateTime            @default(now())
 }
 
-model Call {
-  id          String      @id @default(cuid())
-  leadId      String      @map("lead_id") @db.Uuid
-  type        CallType
-  outcome     CallOutcome
-  notes       String?
-  timestamp   DateTime    @default(now())
-  createdById String?     @map("created_by_id")
-
-  // Relations
-  lead Lead  @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  user User? @relation(fields: [createdById], references: [id], onDelete: SetNull)
-
-  @@index([leadId])
-  @@index([timestamp])
-  @@map("calls")
+model CareerTrack {
+  id          String              @id @default(cuid())
+  name        String              @unique // Azure Data Engineer, Microsoft Fabric Engineer, etc.
+  description String?             
+  requests    MentorshipRequest[]
+  createdAt   DateTime            @default(now())
 }
 
-enum CallType {
-  INCOMING
-  OUTGOING
-  MISSED
+model MentorshipRequest {
+  id                String               @id @default(cuid())
+  fullName          String
+  email             String               @unique
+  linkedin          String
+  experience        String               // Years of experience
+  targetRole        String               // Target role
+  challenge         String                // Biggest challenge
+  resumeUrl         String?              // File path
+  cohortId          String?
+  cohort            Cohort?              @relation(fields: [cohortId], references: [id], onDelete: SetNull)
+  trackId           String?
+  track             CareerTrack?         @relation(fields: [trackId], references: [id], onDelete: SetNull)
+  status            String               @default("Applied") // Applied, Resume Reviewed, Learning, Project Completed, Mock Interview, Interview Scheduled, Offer Received, Placed
+  isComebackProgram Boolean              @default(false) // Career Comeback Program flag
+  mentorNotes       String?               // Simple notes fallback
+  feedbackTimeline  MentorshipFeedback[]
+  progress          MentorshipProgress[]
+  projects          SubmittedProject[]
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
 }
 
-enum CallOutcome {
-  NO_ANSWER
-  INTERESTED
-  NOT_INTERESTED
-  CALLBACK
-  CONVERTED
-  LEFT_VOICEMAIL
+model MentorshipFeedback {
+  id           String            @id @default(cuid())
+  mentorshipId String
+  content      String            
+  createdAt    DateTime          @default(now())
+  mentorship   MentorshipRequest @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
 }
 
-model Activity {
-  id          String   @id @default(cuid())
-  leadId      String   @map("lead_id") @db.Uuid
-  type        String
-  description String
-  createdById String?  @map("created_by_id")
-  timestamp   DateTime @default(now())
-
-  // Relations
-  lead Lead  @relation(fields: [leadId], references: [id], onDelete: Cascade)
-  user User? @relation(fields: [createdById], references: [id], onDelete: SetNull)
-
-  @@index([leadId])
-  @@index([timestamp])
-  @@map("activities")
+model MentorshipProgress {
+  id           String            @id @default(cuid())
+  mentorshipId String
+  week         Int               @default(1)
+  moduleName   String            // e.g. SQL, Python, PySpark, ADF, Fabric
+  completed    Boolean           @default(false)
+  completedAt  DateTime?
+  mentorship   MentorshipRequest @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
 }
 
-model FollowUp {
-  id          String         @id @default(cuid())
-  leadId      String         @map("lead_id") @db.Uuid
-  scheduledAt DateTime       @map("scheduled_at")
-  status      FollowUpStatus @default(PENDING)
-  notes       String?
-  createdAt   DateTime       @default(now()) @map("created_at")
-  updatedAt   DateTime       @updatedAt @map("updated_at")
-
-  // Relations
-  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
-
-  @@index([scheduledAt])
-  @@index([status])
-  @@index([leadId])
-  @@map("follow_ups")
+model SubmittedProject {
+  id           String            @id @default(cuid())
+  mentorshipId String
+  title        String            // Project Name
+  repoUrl      String            // Repository
+  demoUrl      String?           // Live Demo link
+  architectureUrl String?        // Architecture diagram image path
+  description  String            
+  status       String            @default("Pending") // Pending, Reviewed, Approved
+  rating       Float?            // Rating (e.g. 4.5/5)
+  showcase     Boolean           @default(false) // Public showcase opt-in
+  feedback     String?           
+  technologies String            // Comma-separated tech list
+  createdAt    DateTime          @default(now())
+  mentorship   MentorshipRequest @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
 }
 
-enum FollowUpStatus {
-  PENDING
-  COMPLETED
-  CANCELLED
-}
-
-model AIRecommendation {
-  id             String   @id @default(cuid())
-  leadId         String   @map("lead_id") @db.Uuid
-  recommendation String
-  category       String
-  status         String   @default("PENDING") // PENDING, FOLLOWED, SKIPPED, SNOOZED
-  reasoning      String[]
-  weightModifier Float    @default(0.0)
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-
-  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
-
-  @@map("ai_recommendations")
-}
-
-model Integration {
-  id          String    @id @default(cuid())
-  workspaceId String    @map("workspace_id")
-  provider    String // "facebook", "instagram", "tiktok", "custom"
-  status      String    @default("ACTIVE") // ACTIVE, ERROR, PAUSED
-  secretKey   String?   @unique @map("secret_key")
-  credentials Json? // To store { accessToken, pageId, etc }
-  leadsCount  Int       @default(0) @map("leads_count")
-  lastSyncAt  DateTime? @map("last_sync_at")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-
-  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  webhookLogs WebhookLog[]
-
-  @@index([workspaceId])
-  @@index([provider])
-  @@map("integrations")
-}
-
-model WebhookLog {
-  id            String   @id @default(cuid())
-  integrationId String   @map("integration_id")
-  payload       Json
-  status        String // "SUCCESS", "ERROR"
-  errorMessage  String?  @map("error_message")
-  createdAt     DateTime @default(now()) @map("created_at")
-
-  integration Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
-
-  @@index([integrationId])
-  @@map("webhook_logs")
-}
-
-model RoutingRule {
-  id          String   @id @default(cuid())
-  workspaceId String   @map("workspace_id")
-  name        String
-  priority    Int      @default(0)
-  isActive    Boolean  @default(true) @map("is_active")
-  conditions  Json // e.g., [{ "field": "source", "operator": "equals", "value": "facebook" }]
-  actions     Json // e.g., [{ "type": "assignTo", "value": "user_id" }, { "type": "addTag", "value": "Hot" }]
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-
-  @@index([workspaceId])
-  @@index([priority])
-  @@map("routing_rules")
-}
-
-model AuditLog {
-  id          String   @id @default(cuid())
-  action      String // e.g., "PLAN_UPGRADE", "WORKSPACE_SUSPENDED", "IMPERSONATION_STARTED"
-  adminId     String?  @map("admin_id") // ID of the super admin who performed the action
-  workspaceId String?  @map("workspace_id")
-  details     Json? // Optional payload describing the action
-  createdAt   DateTime @default(now()) @map("created_at")
-
-  workspace Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
-
-  @@index([workspaceId])
-  @@index([adminId])
-  @@index([createdAt])
-  @@map("audit_logs")
-}
-
-model Announcement {
+model MentorshipResource {
   id          String   @id @default(cuid())
   title       String
-  message     String   @db.Text
-  type        String   @default("INFO") // INFO, WARNING, SUCCESS, ERROR
-  isPublished Boolean  @default(false) @map("is_published")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  @@index([isPublished])
-  @@map("announcements")
+  category    String   // Roadmap, Template, Guide, Checklist
+  description String?  
+  downloadUrl String   // Local path or external URL
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
-// =======================
-// BILLING & SUBSCRIPTION
-// =======================
-
-model SubscriptionPlan {
-  id           String  @id @default(cuid())
-  name         String
-  slug         String  @unique
-  monthlyPrice Float   @map("monthly_price")
-  yearlyPrice  Float?  @map("yearly_price")
-  isActive     Boolean @default(true) @map("is_active")
-
-  maxUsers     Int? @map("max_users")
-  maxContacts  Int? @map("max_contacts")
-  maxLeads     Int? @map("max_leads")
-  maxPipelines Int? @map("max_pipelines")
-
-  features Json
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  subscriptions Subscription[]
-
-  @@map("subscription_plans")
+model MentorshipToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
-model Subscription {
-  id String @id @default(cuid())
-
-  workspaceId String @map("workspace_id")
-  planId      String @map("plan_id")
-
-  status    String
-  startDate DateTime  @map("start_date")
-  endDate   DateTime? @map("end_date")
-
-  workspace Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  plan      SubscriptionPlan @relation(fields: [planId], references: [id])
-
-  createdAt DateTime @default(now()) @map("created_at")
-
-  @@index([workspaceId])
-  @@index([planId])
-  @@map("subscriptions")
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
 }
 
-model Transaction {
-  id String @id @default(cuid())
 
-  workspaceId String @map("workspace_id")
 
-  amount   Float
-  currency String @default("INR")
-
-  status        String
-  paymentMethod String? @map("payment_method")
-
-  invoiceNumber String? @map("invoice_number")
-
-  createdAt DateTime @default(now()) @map("created_at")
-
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-
-  @@index([workspaceId])
-  @@map("transactions")
-}
-
-// =======================
-// RESTAURANT / HOTEL MODELS
-// =======================
-
-model Table {
-  id          String @id @default(cuid())
-  workspaceId String @map("workspace_id")
-  number      String
-  capacity    Int    @default(2)
-  status      String @default("AVAILABLE") // AVAILABLE, OCCUPIED, RESERVED
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  orders    Order[]
-
-  @@index([workspaceId])
-  @@map("tables")
-}
-
-model MenuCategory {
-  id          String @id @default(cuid())
-  workspaceId String @map("workspace_id")
-  name        String
-  order       Int    @default(0)
-
-  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  items     MenuItem[]
-
-  @@index([workspaceId])
-  @@map("menu_categories")
-}
-
-model MenuItem {
-  id          String  @id @default(cuid())
-  categoryId  String  @map("category_id")
-  name        String
-  description String? @db.Text
-  price       Float
-  isAvailable Boolean @default(true) @map("is_available")
-  imageUrl    String? @map("image_url")
-
-  category   MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  orderItems OrderItem[]
-
-  @@index([categoryId])
-  @@map("menu_items")
-}
-
-model Order {
-  id          String  @id @default(cuid())
-  workspaceId String  @map("workspace_id")
-  tableId     String? @map("table_id")
-  waiterId    String? @map("waiter_id")
-
-  status   String @default("OPEN") // OPEN, SERVED, PAID, CANCELLED
-  subtotal Float  @default(0.0)
-  tax      Float  @default(0.0)
-  tip      Float  @default(0.0)
-  total    Float  @default(0.0)
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  workspace Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  table     Table?      @relation(fields: [tableId], references: [id], onDelete: SetNull)
-  waiter    User?       @relation(fields: [waiterId], references: [id], onDelete: SetNull)
-  items     OrderItem[]
-
-  @@index([workspaceId])
-  @@index([tableId])
-  @@index([waiterId])
-  @@map("orders")
-}
-
-model OrderItem {
-  id         String @id @default(cuid())
-  orderId    String @map("order_id")
-  menuItemId String @map("menu_item_id")
-
-  quantity    Int     @default(1)
-  priceAtTime Float   @map("price_at_time") // Snapshot of price when ordered
-  notes       String?
-
-  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Restrict)
-
-  @@index([orderId])
-  @@index([menuItemId])
-  @@map("order_items")
-}
-
-// =======================
-// INDUSTRY CONFIGURATION
-// =======================
-
-model IndustryCategory {
-  id           String   @id @default(cuid())
-  name         String
-  description  String?
-  displayOrder Int      @default(0) @map("display_order")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-
-  industries Industry[]
-
-  @@map("industry_categories")
-}
-
-model Industry {
-  id                String   @id @default(cuid())
-  categoryId        String   @map("category_id")
-  name              String
-  slug              String   @unique
-  icon              String   @default("Briefcase")
-  isPopular         Boolean  @default(false) @map("is_popular")
-  pipelineStages    String[] @map("pipeline_stages")
-  leadSources       String[] @map("lead_sources")
-  defaultTags       String[] @map("default_tags")
-  aiPrompts         Json?    @map("ai_prompts")
-  emailTemplates    Json?    @map("email_templates")
-  whatsappTemplates Json?    @map("whatsapp_templates")
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
-
-  category IndustryCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  @@index([categoryId])
-  @@index([isPopular])
-  @@map("industries")
-}

@@ -6,11 +6,11 @@ export interface BlogSection {
 }
 
 export interface BlogPost {
-  slug: string;
+  slug?: string;
   title: string;
-  description: string;
+  description?: string;
   excerpt: string;
-  keywords: string[];
+  keywords?: string[];
   date: string;
   author: string;
   category: string;

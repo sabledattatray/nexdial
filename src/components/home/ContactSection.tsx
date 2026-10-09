@@ -24,22 +24,44 @@ export function ContactSection() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        message: "",
-        interest: "Excel Dashboards & Power BI",
-        volume: "Under 100k Rows",
-        source: "Excel / CSV Files",
+    
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.interest,
+          message: formData.message,
+        })
       });
-    }, 4000);
+      
+      if (res.ok) {
+        setFormSubmitted(true);
+        setTimeout(() => {
+          setFormSubmitted(false);
+          setFormData({
+            name: "",
+            email: "",
+            company: "",
+            phone: "",
+            message: "",
+            interest: "Excel Dashboards & Power BI",
+            volume: "Under 100k Rows",
+            source: "Excel / CSV Files",
+          });
+        }, 4000);
+      } else {
+        const errorData = await res.json();
+        alert(errorData.message || "Failed to submit form.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   // Dynamic next 3 business days

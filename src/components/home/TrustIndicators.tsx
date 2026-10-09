@@ -9,23 +9,17 @@ import {
 } from "lucide-react";
 
 const clientTypes = [
-  { name: "Small Businesses", icon: Home, color: "#00E5A0" },
-  { name: "Operations Teams", icon: Megaphone, color: "#00C2FF" },
-  { name: "Finance & Accounting", icon: GraduationCap, color: "#8B5CF6" },
-  { name: "Sales Teams", icon: Stethoscope, color: "#EF4444" },
-  { name: "HR Departments", icon: Shield, color: "#3B82F6" },
-  { name: "Startups", icon: Scale, color: "#F59E0B" },
-  { name: "MIS & Reporting", icon: Compass, color: "#EC4899" },
-  { name: "Business Owners", icon: Calendar, color: "#10B981" },
-  { name: "Consultants", icon: Car, color: "#6366F1" },
-  { name: "Agencies", icon: Dumbbell, color: "#F43F5E" },
+  { name: "Finance", desc: "Monthly MIS and reconciliation", icon: GraduationCap, color: "#8B5CF6" },
+  { name: "Sales", desc: "Sales performance & commissions", icon: Stethoscope, color: "#EF4444" },
+  { name: "Operations", desc: "Inventory & performance trackers", icon: Megaphone, color: "#00C2FF" },
+  { name: "HR", desc: "Attendance & workforce reporting", icon: Shield, color: "#3B82F6" },
 ];
 
 const trustBadges = [
-  { name: "Requirement-First", desc: "Agree on needs before building", icon: Activity, color: "#00E5A0" },
-  { name: "Practical Solutions", desc: "Simplest suitable tool", icon: Star, color: "#F59E0B" },
-  { name: "Clear Handover", desc: "Organized deliverables", icon: TrendingUp, color: "#00C2FF" },
-  { name: "Defined Scope", desc: "Outputs & price confirmed", icon: ShieldCheck, color: "#8B5CF6" },
+  { name: "Requirement-First", desc: "Agreed deliverables", icon: Activity, color: "#00E5A0" },
+  { name: "Practical Solutions", desc: "Validation against sample data", icon: Star, color: "#F59E0B" },
+  { name: "Clear Handover", desc: "A documented handover", icon: TrendingUp, color: "#00C2FF" },
+  { name: "Defined Scope", desc: "Clearly defined scope & price", icon: ShieldCheck, color: "#8B5CF6" },
 ];
 
 export function TrustIndicators() {
@@ -47,37 +41,34 @@ export function TrustIndicators() {
           </p>
         </AnimatedSection>
 
-        {/* Industry Carousel */}
-        <div className="relative mb-16">
-          {/* Edge fading gradients */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-48 bg-gradient-to-r from-[#081120] to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-48 bg-gradient-to-l from-[#081120] to-transparent z-10 pointer-events-none" />
-
-          <div className="overflow-hidden py-4">
-            <div className="animate-marquee hover-pause flex gap-4 sm:gap-6 items-center whitespace-nowrap">
-              {[...clientTypes, ...clientTypes].map((client, i) => {
-                const IconComponent = client.icon;
-                return (
-                  <div
-                    key={`${client.name}-${i}`}
-                    className="flex-shrink-0 flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-300 hover:scale-[1.03] hover:-translate-y-0.5 cursor-pointer group shadow-[0_4px_20px_-10px_rgba(0,0,0,0.5)]"
-                  >
+        {/* Industry Grid */}
+        <AnimatedSection delay={0.1}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-16">
+            {clientTypes.map((client) => {
+              const IconComponent = client.icon;
+              return (
+                <div
+                  key={client.name}
+                  className="flex flex-col gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-300 group shadow-[0_4px_20px_-10px_rgba(0,0,0,0.5)]"
+                >
+                  <div className="flex items-center gap-3">
                     <div 
-                      className="w-8 h-8 rounded-xl flex items-center justify-center bg-white/[0.03] border border-white/[0.06] group-hover:scale-110 duration-300"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/[0.03] border border-white/[0.06] group-hover:scale-110 duration-300"
                       style={{ color: client.color }}
                     >
-                      <IconComponent className="w-4 h-4" />
+                      <IconComponent className="w-5 h-5" />
                     </div>
-                    <span className="text-xs sm:text-sm font-semibold text-[#94A3B8] group-hover:text-white transition-colors tracking-wide">
+                    <span className="text-base font-bold text-white group-hover:text-white transition-colors tracking-wide">
                       {client.name}
                     </span>
                   </div>
-                );
-              })}
-            </div>
+                  <p className="text-sm text-[#94A3B8] group-hover:text-[#CBD5E1] transition-colors">{client.desc}</p>
+                </div>
+              );
+            })}
           </div>
-        </div>
-
+        </AnimatedSection>
+        
         {/* Trust Badges - Grid based premium layout */}
         <AnimatedSection delay={0.2}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">

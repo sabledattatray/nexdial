@@ -236,8 +236,8 @@ export default function PrivacyPage() {
               </p>
               <ul className="list-disc pl-6 space-y-1.5">
                 <li>Razorpay Order ID and Payment ID (for verification and receipts)</li>
-                <li>Mandate status and subscription plan</li>
-                <li>Billing history (plan, amount, date)</li>
+                <li>Retainer agreement status</li>
+                <li>Billing history (project, amount, date)</li>
               </ul>
 
               <h3 className="text-white font-semibold text-xs uppercase tracking-wider mt-4">E. Technical & Usage Data</h3>
@@ -284,7 +284,7 @@ export default function PrivacyPage() {
                   <strong>Cloud Storage:</strong> Your project files and data are stored in secure cloud environments (e.g., AWS, Microsoft Azure, Google Cloud) with strict access controls.
                 </li>
                 <li>
-                  <strong>Razorpay (Payments):</strong> Payment processing. Razorpay is PCI-DSS Level 1 certified. We share only the minimum data required.
+                  <strong>Razorpay (Payments):</strong> Invoice payment processing. Razorpay is PCI-DSS Level 1 certified. We share only the minimum data required.
                 </li>
                 <li>
                   <strong>Microsoft/Google (OAuth):</strong> If you use &quot;Sign in with Google/Microsoft,&quot; standard OAuth data is shared.

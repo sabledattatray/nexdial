@@ -126,10 +126,10 @@ function ParticleField() {
 }
 
 const mockLeads = [
-  { name: "Sales MIS Report", source: "Excel", status: "CLEANING", phone: "+91 98765 43210", time: "2 min ago", health: 92 },
-  { name: "HR Data Consolidation", source: "CSV", status: "FORMATTING", phone: "+1 555-0142", time: "15 min ago", health: 78 },
-  { name: "Monthly KPI Dash", source: "SQL", status: "CALCULATING", phone: "+91 87654 32109", time: "1 hr ago", health: 85 },
-  { name: "Inventory Reconciliation", source: "API", status: "VALIDATING", phone: "+65 9012 3456", time: "3 hrs ago", health: 64 },
+  { name: "Sales MIS Report", source: "Excel", status: "CLEANING", phone: "+91 98765 43210", time: "2 min ago", formatting: 92 },
+  { name: "HR Data Consolidation", source: "CSV", status: "FORMATTING", phone: "+1 555-0142", time: "15 min ago", formatting: 78 },
+  { name: "Monthly KPI Dash", source: "Power Query", status: "CALCULATING", phone: "+91 87654 32109", time: "1 hr ago", formatting: 85 },
+  { name: "Inventory Reconciliation", source: "VBA", status: "VALIDATING", phone: "+65 9012 3456", time: "3 hrs ago", formatting: 64 },
 ];
 
 const statusColors: Record<string, string> = {
@@ -140,9 +140,9 @@ const statusColors: Record<string, string> = {
 };
 
 const sourceIcons: Record<string, typeof PhoneCall> = {
-  SQL: MessageSquare,
+  "Power Query": MessageSquare,
   Excel: Inbox,
-  API: PhoneCall,
+  VBA: PhoneCall,
   CSV: Users,
 };
 
@@ -261,9 +261,9 @@ function DataDashboardPreview() {
                           {lead.status.replace("_", " ")}
                         </span>
                         <div className="text-right">
-                          <div className="text-[11px] text-[#64748B]">Health</div>
-                          <div className={`text-sm font-bold ${lead.health >= 80 ? "text-[#00E5A0]" : lead.health >= 60 ? "text-[#F59E0B]" : "text-[#EF4444]"}`}>
-                            {lead.health}%
+                          <div className="text-[11px] text-[#64748B]">Formatting</div>
+                          <div className={`text-sm font-bold ${lead.formatting >= 80 ? "text-[#00E5A0]" : lead.formatting >= 60 ? "text-[#F59E0B]" : "text-[#EF4444]"}`}>
+                            {lead.formatting}%
                           </div>
                         </div>
                       </div>
@@ -344,9 +344,9 @@ function DataDashboardPreview() {
                               {lead.status.replace("_", " ")}
                             </span>
                             <div className="text-right">
-                              <div className="text-[11px] text-[#64748B]">Health</div>
-                              <div className={`text-sm font-bold ${lead.health >= 80 ? "text-[#00E5A0]" : lead.health >= 60 ? "text-[#F59E0B]" : "text-[#EF4444]"}`}>
-                                {lead.health}%
+                              <div className="text-[11px] text-[#64748B]">Formatting</div>
+                              <div className={`text-sm font-bold ${lead.formatting >= 80 ? "text-[#00E5A0]" : lead.formatting >= 60 ? "text-[#F59E0B]" : "text-[#EF4444]"}`}>
+                                {lead.formatting}%
                               </div>
                             </div>
                           </div>
@@ -558,15 +558,17 @@ export function HeroSection() {
                 <div className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
                 Remote freelance support for businesses, consultants, and operations teams.
               </div>
-              <div className="w-px h-4 bg-white/10" />
-              <div>2-Min Setup</div>
-              <div className="w-px h-4 bg-white/10" />
-              <div>No Credit Card</div>
+              
             </div>
           </div>
 
           {/* Right — CRM Inbox Preview */}
           <div className="block mt-16 lg:mt-0 relative w-full min-w-0">
+            <div className="text-center mb-3">
+              <span className="text-xs font-semibold text-[#64748B] uppercase tracking-wider bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                Illustrative dashboard preview — sample data
+              </span>
+            </div>
             <div
               className="relative w-full group animate-scale-in opacity-0 hover:scale-[1.01] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{ animationDelay: "400ms" }}

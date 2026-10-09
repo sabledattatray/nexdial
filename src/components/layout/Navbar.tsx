@@ -154,10 +154,10 @@ export function Navbar() {
               </div>
               <div className="flex flex-col">
                 <span className="text-white font-bold text-xl tracking-tighter leading-none flex items-center" style={{ fontFamily: "var(--font-outfit)" }}>
-                  Nexdial<sup className="inline-flex items-center justify-center w-[14px] h-[14px] ml-0.5 rounded-full border border-white text-white text-[9px] font-light shadow-[0_0_8px_rgba(255,255,255,0.2)]">R</sup>
+                  NexDial<sup className="inline-flex items-center justify-center w-[14px] h-[14px] ml-0.5 rounded-full border border-white text-white text-[9px] font-light shadow-[0_0_8px_rgba(255,255,255,0.2)]">R</sup>
                 </span>
                 <span className="text-[8.5px] text-[#64748B] font-medium tracking-widest uppercase leading-none mt-1.5">
-                  Data & Business Automation
+                  Data & Reporting
                 </span>
               </div>
             </Link>
@@ -252,13 +252,7 @@ export function Navbar() {
                 <LogIn className="w-4 h-4" />
                 Client Login
               </Link>
-              <Link
-                href="/signup"
-                className="text-sm font-medium text-[#00C2FF] hover:text-[#00E5A0] transition-colors px-4 py-2 flex items-center gap-1.5"
-              >
-                <UserPlus className="w-4 h-4" />
-                Request Access
-              </Link>
+              
               <Link
                 href="/contact"
                 className="btn-primary text-sm !py-2.5 !px-5 flex items-center gap-2"
@@ -340,13 +334,7 @@ export function Navbar() {
                   >
                     Client Login
                   </Link>
-                  <Link
-                    href="/signup"
-                    onClick={() => setMobileOpen(false)}
-                    className="w-full text-center block text-sm py-3 border border-[#00C2FF]/30 text-[#00C2FF] rounded-xl font-bold"
-                  >
-                    Request Access
-                  </Link>
+                  
                   <Link
                     href="/contact"
                     onClick={() => setMobileOpen(false)}

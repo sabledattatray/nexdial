@@ -15,31 +15,45 @@ import Link from "next/link";
 const features = [
   {
     icon: FileSpreadsheet,
-    title: "Excel Data Cleaning & Formatting",
-    description: "Transform messy, unstructured data into clean, usable formats for analysis or upload.",
+    title: "Advanced Excel",
+    description: "Problem: Unstable workbooks. Deliverable: Optimized templates. Next Step: Get a quote.",
     color: "#0057D9",
-    href: "/services/data-cleaning",
+    href: "/services/advanced-excel",
   },
   {
     icon: BarChart,
-    title: "MIS Reporting & Dashboards",
-    description: "Regular performance reports built in Excel or Power BI to track your key metrics clearly.",
+    title: "MIS Reporting",
+    description: "Problem: Manual reporting. Deliverable: Automated MIS reports. Next Step: View samples.",
     color: "#00C2FF",
     href: "/services/mis-reporting",
   },
   {
-    icon: Repeat,
-    title: "Process Automation",
-    description: "Use Power Query and macros to automate repetitive copy-pasting and formatting tasks.",
+    icon: PieChart,
+    title: "Excel Dashboards",
+    description: "Problem: Unclear KPIs. Deliverable: Interactive Excel dashboards. Next Step: Book a demo.",
     color: "#00E5A0",
-    href: "/services/automation",
+    href: "/services/excel-dashboards",
   },
   {
     icon: Database,
-    title: "Data Migration & Validation",
-    description: "Ensure your data is accurate and correctly formatted before moving it to a new CRM or ERP.",
+    title: "Data Cleaning",
+    description: "Problem: Messy data. Deliverable: Cleaned & standardized files. Next Step: Start project.",
     color: "#8B5CF6",
-    href: "/services/data-migration",
+    href: "/services/data-cleaning",
+  },
+  {
+    icon: Repeat,
+    title: "VBA & Macros",
+    description: "Problem: Repetitive tasks. Deliverable: Automated VBA scripts. Next Step: Discuss scope.",
+    color: "#F59E0B",
+    href: "/services/vba-automation",
+  },
+  {
+    icon: BarChart,
+    title: "Power BI",
+    description: "Problem: Disconnected data. Deliverable: Deployed BI workspaces. Next Step: Check integration.",
+    color: "#EC4899",
+    href: "/services/power-bi",
   },
 ];
 
@@ -61,7 +75,7 @@ export function ServicesShowcase() {
           </p>
         </AnimatedSection>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.06}>
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.06}>
           {features.map((feature) => (
             <StaggerItem key={feature.title}>
               <Link href={feature.href}>

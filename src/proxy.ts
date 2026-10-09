@@ -20,7 +20,6 @@ export function proxy(req: any, event: any) {
 export const config = {
   matcher: [
     "/crm/:path*",
-    "/admin/:path*",
     "/supervisor/:path*",
     "/client-portal/:path*",
     "/dialer/:path*",

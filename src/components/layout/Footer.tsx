@@ -55,10 +55,10 @@ const footerLinks = {
     { label: "Power BI", href: "/services/power-bi" },
   ],
   resources: [
-    { label: "Finance Teams", href: "/use-cases/finance" },
-    { label: "Operations", href: "/use-cases/operations" },
-    { label: "Sales & Marketing", href: "/use-cases/sales" },
-    { label: "HR & Admin", href: "/use-cases/hr" },
+    { label: "Finance Teams", href: "/industries/finance" },
+    { label: "Operations", href: "/industries/operations" },
+    { label: "Sales & Marketing", href: "/industries/sales" },
+    { label: "HR & Admin", href: "/industries/hr" },
   ],
   company: [
     { label: "About Us", href: "/about" },
@@ -113,7 +113,7 @@ export function Footer() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#0057D9]/10 via-transparent to-[#00C2FF]/10" />
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Ready to Stop Wrestling with Spreadsheets?
+                Ready to Start Your Data Project?
               </h2>
               <p className="text-[#94A3B8] text-lg mb-8 max-w-2xl mx-auto">
                 Let our experts build automated data solutions that save you hours of manual work every week.
@@ -144,10 +144,10 @@ export function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="text-white font-bold text-xl tracking-tighter leading-none flex items-center" style={{ fontFamily: "var(--font-outfit)" }}>
-                  Nexdial<sup className="inline-flex items-center justify-center w-[14px] h-[14px] ml-0.5 rounded-full border border-white text-white text-[9px] font-light shadow-[0_0_8px_rgba(255,255,255,0.2)]">R</sup>
+                  NexDial<sup className="inline-flex items-center justify-center w-[14px] h-[14px] ml-0.5 rounded-full border border-white text-white text-[9px] font-light shadow-[0_0_8px_rgba(255,255,255,0.2)]">R</sup>
                 </span>
                 <span className="text-[8.5px] text-[#94A3B8] font-medium tracking-widest uppercase leading-none mt-1.5">
-                  Data & Business Automation
+                  Data & Reporting
                 </span>
               </div>
             </Link>
